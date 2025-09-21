@@ -1,0 +1,86 @@
+package com.springboot.onlinereporting.system.springsecurity.config;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+
+import com.springboot.onlinereporting.system.entities.UserEntity;
+import com.springboot.onlinereporting.system.repositories.UserRepository;
+import com.springboot.onlinereporting.system.springsecurity.service.JWTService;
+
+import java.io.IOException;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+
+import com.springboot.onlinereporting.system.springsecurity.service.JWTService;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@Component
+public class JwtAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
+	@Autowired
+	private JWTService jwtService;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Override
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) throws IOException, ServletException {
+
+		// Generate JWT with the authenticated user's email (username)
+		String emailId = authentication.getName(); // This is the emailid from login form
+		String token = jwtService.generateToken(emailId);
+		UserEntity user = userRepository.findByEmailid(emailId).get();
+		if (user != null) {
+			// Store User entity in session
+			request.getSession().setAttribute("loggedUser", user);
+
+		} else {
+			String loginUrl = "/onlinecrimereportingsystem/login?" + "error";
+
+			getRedirectStrategy().sendRedirect(request, response, loginUrl);
+		}
+
+		// Create secure cookie for JWT
+		Cookie jwtCookie = new Cookie("jwt", token);
+		jwtCookie.setHttpOnly(true); // Prevent JS access
+		jwtCookie.setSecure(true); // HTTPS only (set to false for local testing)
+		jwtCookie.setPath("/");
+		jwtCookie.setMaxAge((int) (jwtService.getTokenExpiryMs() / 1000)); // Match expiry (10 min)
+
+		response.addCookie(jwtCookie);
+
+		// Redirect based on role (ADMIN vs USER)
+		String redirectUrl = determineTargetUrl(authentication);
+		getRedirectStrategy().sendRedirect(request, response, redirectUrl);
+	}
+
+	private String determineTargetUrl(Authentication authentication) {
+		boolean isAdmin = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+				.anyMatch(role -> role.equals("ROLE_ADMIN"));
+
+		if (isAdmin) {
+			return "/onlinecrimereportingsystem/admins/dashboard";
+		} else {
+			return "/onlinecrimereportingsystem/users/dashboard";
+		}
+	}
+}

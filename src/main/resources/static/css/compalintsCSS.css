@@ -1,0 +1,26 @@
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; 
+}
+
+th {
+  border: 2px solid black;
+  background-color: #fc3903;
+  color: white;
+  text-align:center;
+  word-wrap: break-word; 
+ 
+}
+
+td {
+  border: 2px solid black;
+  padding: 6px;
+  word-wrap: break-word; 
+}
+.btn {
+  min-width: 100px;
+}
+

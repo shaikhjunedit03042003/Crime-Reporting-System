@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+	<h1>
+		Welcome, <span sec:authentication="name"></span>
+	</h1>
+
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<a th:href="@{/onlinecrimereportingsystem/admin/admin-dashboard}">Admin
+			Dashboard</a>
+	</div>
+
+	<div sec:authorize="hasRole('ROLE_USER')">
+		<a th:href="@{/onlinecrimereportingsystem/users/user-dashboard}">User
+			Profile</a>
+	</div>
+</body>
+</html>

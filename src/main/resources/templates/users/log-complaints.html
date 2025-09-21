@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{users/user-base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+
+</head>
+<body>
+
+
+	<section 
+		class="banner">
+		<div class="container">
+
+
+			<div class="row">
+
+
+				<div class="col-md-8 offset-md-2">
+					<marquee direction="right"
+						style="color: red; font-size: 20px; display: block; background: #4bf542;">
+						Hello, Welcome to My Website OnlineCrime Reporting System ! </marquee>
+					<div class="my-card">
+
+						<!-- Display success/error message -->
+						<div class="container text-center" id="box1">
+
+							<div th:if="${successMessage}" class="success alert-success"
+								th:text="${successMessage}"></div>
+							<div th:if="${errorMessage}" class="error alert-danger"
+								th:text="${errorMessage}"></div>
+
+						</div>
+
+
+						<div class="container text-center">
+							<img style="width: 10%;" th:src="@{/images/police1.png}" />
+						</div>
+						<h1 class="text-center">Log Complaints !!</h1>
+						<form novalidate
+							th:action="@{/onlinecrimereportingsystem/users/logcomplaints}"
+							method="post" th:object="${logcomplaints}"  enctype="multipart/form-data">
+
+
+
+
+
+
+
+							<div class="form-group">
+								<label for="userId">User Id</label> <input type="text" readonly
+									th:value="${logcomplaints.userId}" class="form-control"
+									id="userId" name="userId"
+									th:classappend="${#fields.hasErrors('userId') ? 'is-invalid' : ''}"
+									th:field="*{userId}">
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('userId')}" th:text="${e}"></div>
+							</div>
+
+							<div class="form-group">
+								<label for="username">User Name</label> <input type="text"
+									readonly th:value="${logcomplaints.username}"
+									class="form-control" id="username" name="userId"
+									th:classappend="${#fields.hasErrors('username') ? 'is-invalid' : ''}"
+									th:field="*{username}">
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('username')}" th:text="${e}"></div>
+							</div>
+
+
+							<!--  1 title Field start -->
+							<div class="form-group">
+								<label for="title">Title</label> <input type="text"
+									class="form-control" id="title" name="title"
+									th:classappend="${#fields.hasErrors('title') ? 'is-invalid': ''}"
+									th:field="*{title}" placeholder="Enter title">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('title')}" th:text="${e}"></div>
+							</div>
+
+							<!-- description -->
+
+							<div class="form-group">
+								<label for="description">Description</label>
+								<textarea rows="10" class="form-control" id="description"
+									name="description"
+									th:classappend="${#fields.hasErrors('description') ? 'is-invalid': ''}"
+									th:field="*{description}" placeholder="Enter description"></textarea>
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('description')}" th:text="${e}"></div>
+							</div>
+
+
+
+
+							<div class="form-group">
+								<label for="status">Status</label> <select id="status"
+									name="status" th:field="*{status}">
+									<option value="PENDING">Pending</option>
+									<!-- <option value="IN_PROGRESS">In Progress</option>
+									<option value="RESOLVED">Resolved</option>
+									-->
+								</select>
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('status')}" th:text="${e}"></div>
+							</div>
+
+
+
+
+							<!-- createdAt -->
+
+							<div class="form-group">
+								<label for="createdAt">Created At</label> <input
+									type="datetime-local" class="form-control" id="createdAt"
+									name="createdAt"
+									th:classappend="${#fields.hasErrors('createdAt') ? 'is-invalid': ''}"
+									th:field="*{createdAt}" placeholder="Select Date and Time">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('createdAt')}" th:text="${e}"></div>
+							</div>
+
+
+							<!-- updatedAt -->
+
+							<div class="form-group">
+								<label for="createdAt">UpdatedAt At</label> <input
+									type="datetime-local" class="form-control" id="updatedAt"
+									name="updatedAt"
+									th:classappend="${#fields.hasErrors('updatedAt') ? 'is-invalid': ''}"
+									th:field="*{updatedAt}" placeholder="Select Date and Time">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('updatedAt')}" th:text="${e}"></div>
+							</div>
+
+							<!-- Crime Type -->
+							<div class="form-group">
+								<label for="crimeType">Crime Type</label> <select
+									class="form-control" id="crimeType" th:field="*{crimeType}"
+									th:classappend="${#fields.hasErrors('crimeType')} ? 'is-invalid' : ''">
+									<option value="0">Select a Crime Type</option>
+								</select>
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('crimeType')}" th:text="${e}"></div>
+							</div>
+							
+							
+							
+							<!-- Crime Type -->
+							<div class="form-group">
+								<label for="crimeType">Select Police Station</label> <select
+									class="form-control" id="policeStation" th:field="*{policeStation}"
+									th:classappend="${#fields.hasErrors('policeStation')} ? 'is-invalid' : ''">
+									<option value="0">Select a Crime Type</option>
+								</select>
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('policeStation')}" th:text="${e}"></div>
+							</div>
+
+
+							<!-- Location -->
+							<div class="form-group">
+								<label for="location">Your Location</label> <input type="text"
+									class="form-control" id="location" th:field="*{location}"
+									placeholder="Enter crime location"
+									th:classappend="${#fields.hasErrors('location') ? 'is-invalid' : ''}">
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('location')}" th:text="${e}"></div>
+							</div>
+
+
+							<!-- User Email -->
+							<div class="form-group">
+								<label for="userEmail">User Email</label> <input type="email"
+									readonly th:value="${logcomplaints.userId}"
+									class="form-control" id="userEmail" th:field="*{userEmail}"
+									placeholder="Enter your email"
+									th:classappend="${#fields.hasErrors('userEmail') ? 'is-invalid' : ''}">
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('userEmail')}" th:text="${e}"></div>
+							</div>
+
+							<!-- Live Location Link -->
+
+
+							<div class="form-group">
+
+								<br> <label for="liveLocationLink">Live Location
+									Link</label> <input type="url" class="form-control"
+									id="liveLocationLink" th:field="*{liveLocationLink}"
+									placeholder="Here Google Maps location link"
+									th:classappend="${#fields.hasErrors('liveLocationLink') ? 'is-invalid' : ''}">
+
+
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary" type="button"
+										onclick="getLocationAndSend()">Get My Location</button>
+								</div>
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('liveLocationLink')}"
+									th:text="${e}"></div>
+							</div>
+
+
+							<!-- Evidence Images Upload -->
+                        <div class="form-group">
+                            <label for="evidenceImages">Upload Evidence Images</label>
+                            <input type="file"
+                                   class="form-control"
+                                   id="evidenceImages"
+                                   name="evidenceImages"
+                                   multiple
+                                   accept="image/*"
+                                   th:classappend="${#fields.hasErrors('evidenceImages') ? 'is-invalid' : ''}">
+                            <div class="invalid-feedback"
+                                 th:each="e : ${#fields.errors('evidenceImages')}"
+                                 th:text="${e}"></div>
+                            <small class="form-text text-muted">Select multiple images (e.g., JPG, PNG) as evidence. Max 5MB per file.</small>
+                        </div>
+
+
+
+
+
+
+							<!-- ===================================================================================================== -->
+							<div class="container text-center">
+								<button class="btn btn-success text-white" type="submit">Submit</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-warning text-white" type="reset">Reset</button>
+
+
+							</div>
+
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

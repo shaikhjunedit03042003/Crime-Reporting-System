@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+
+	<section class="banner">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="my-card">
+						<!-- Display success/error message -->
+						<div th:if="${successMessage}" class="success alert-success"
+							th:text="${successMessage}"></div>
+						<div th:if="${errorMessage}" class="error alert-danger"
+							th:text="${errorMessage}"></div>
+
+
+
+						<div class="container text-center">
+							<img style="width: 10%;" th:src="@{/images/user-profile.png}" />
+						</div>
+
+
+
+						<h1 class="text-center">Police Login Here !!</h1>
+						<form novalidate
+							th:action="@{/onlinecrimereportingsystem/police/policelogin}"
+							method="post" th:object="${policeLoginDTO}">
+
+
+							<!-- <div th:if="${param.error}" class="alert alert-danger">
+							Invalid Username and Password</div>
+						<div th:if="${param.logout}" class="alert alert-success">
+							You have been Logout !!</div> -->
+
+
+
+							<!-- Email Field start -->
+							<div class="form-group">
+								<label for="email">Enter Your Email Address</label> <input
+									type="text" class="form-control" id="email" name="email"
+									th:classappend="${#fields.hasErrors('email') ? 'is-invalid': ''}"
+									th:field="*{email}" placeholder="Enter Your Email ID">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('email')}" th:text="${e}"></div>
+							</div>
+
+							<!-- End Email field -->
+
+							<!-- Password Field start -->
+							<div class="form-group">
+								<label for="contactNumber">Enter Contact Number</label> <input
+									type="text" class="form-control" id="contactNumber"
+									name="contactNumber"
+									th:classappend="${#fields.hasErrors('contactNumber') ? 'is-invalid': ''}"
+									th:field="*{contactNumber}"
+									placeholder="Enter Your Contact Numberr">
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('contactNumber')}" th:text="${e}">
+								</div>
+
+
+							</div>
+							<!-- End passowrd field -->
+
+							<div class="container text-center">
+								<button class="btn btn-success text-white" type="submit">Login</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-warning text-white" type="reset">Reset</button>
+
+
+							</div>
+
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

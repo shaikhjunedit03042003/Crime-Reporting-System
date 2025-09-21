@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{users/user-base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+
+</head>
+<body>
+
+	<section class="banner">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="my-card">
+						<!-- Display success/error message -->
+						<div class="container text-center" id="box1">
+
+							<div th:if="${successMessage}" class="success alert-success"
+								th:text="${successMessage}"></div>
+							<div th:if="${errorMessage}" class="error alert-danger"
+								th:text="${errorMessage}"></div>
+
+						</div>
+						<div class="container text-center">
+							<img style="width: 10%;" th:src="@{/images/police1.png}" />
+						</div>
+						<h1 class="text-center">My Account  !!</h1>
+						<form novalidate
+							th:action="@{/onlinecrimereportingsystem/users/updateuser/{id}(id=${userDTO.id})}"
+							method="post" th:object="${userDTO}" enctype="multipart/form-data">
+
+
+
+							 		
+			<img th:src="@{/onlinecrimereportingsystem/users/image/{id}(id=${userDTO.id})}" 
+     alt="Police Profile"
+			style="width: 100px; height: 100px; object-fit: cover; margin-right: 10px;" />
+<br><br>
+			
+
+						<!--  1 id Field start -->
+							<div class="form-group">
+							<label for="id">User ID</label>
+								 <input readonly
+									type="text" class="form-control" id="id" name="id"
+									th:classappend="${#fields.hasErrors('id') ? 'is-invalid': ''}"
+									th:field="*{id}"  required >
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('id')}" th:text="${e}"></div>
+							</div>
+
+
+
+							<!--  1 name Field start -->
+							<div class="form-group">
+								<label for="username"> User Name </label> <input
+									type="text" class="form-control" id="username" name="username"
+									th:classappend="${#fields.hasErrors('username') ? 'is-invalid': ''}"
+									th:field="*{username}"  >
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('username')}" th:text="${e}"></div>
+							</div>
+
+							<!-- End name field -->
+
+
+							<!--  2 badgeNumber Field start -->
+							<div class="form-group">
+							<label for="emailid">Email Address</label>
+								 <input readonly
+									type="text" class="form-control" id="emailid"
+									name="emailid"
+									th:classappend="${#fields.hasErrors('emailid') ? 'is-invalid': ''}"
+									th:field="*{emailid}" required >
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('emailid')}" th:text="${e}">
+								</div>
+							</div>
+
+							<!-- End stationCode field -->
+							
+							
+							<!-- textarea message Field start -->
+							<div class="form-group">
+							<label>Message</label>
+								<textarea class="form-control" id="message" name="message"
+									th:field="*{message}" rows="10"
+									></textarea>
+							</div>
+							<!-- End message field -->
+
+
+<!-- Image Upload Field -->
+							<div class="form-group">
+								<label for="image">Upload Your Image</label> <input type="file"
+									class="form-control-file" id="image" name="image"
+									th:field="*{image}" accept="image/*"
+									th:classappend="${#fields.hasErrors('image') ? 'is-invalid': ''}">
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('image')}" th:text="${e}"></div>
+							</div>
+							<!-- End Image Upload Field -->
+
+
+							<!-- type="tel" id="phone" name="phone" 
+         maxlength="10" minlength="10" 
+         pattern="[0-9]{10}" 
+         placeholder="Enter 10-digit number" required -->
+
+
+						
+			
+							
+							
+							<!-- ===================================================================================================== -->
+							<div class="container text-center">
+								<button class="btn btn-success text-white" type="submit">Updtae</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-warning text-white" type="reset">Reset</button>
+
+
+							</div>
+
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

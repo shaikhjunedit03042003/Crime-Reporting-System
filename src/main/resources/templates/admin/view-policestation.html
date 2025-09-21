@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{admin/admin-base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+
+	<section class="banner">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="my-card">
+						<!-- Display success/error message -->
+						<div class="container text-center" id="box1">
+
+							<div th:if="${successMessage}" class="success alert-success"
+								th:text="${successMessage}"></div>
+							<div th:if="${errorMessage}" class="error alert-danger"
+								th:text="${errorMessage}"></div>
+
+						</div>
+						<div class="container text-center">
+							<img style="width: 10%;" th:src="@{/images/police1.png}" />
+						</div>
+						<h1 class="text-center">Update Police Station</h1>
+						<form novalidate
+							th:action="@{/onlinecrimereportingsystem/admins/updatepolicestation/{id}(id=${policestationentryDTO.id})}"
+							method="post" th:object="${policestationentryDTO}">
+
+
+
+
+								<!--  0 Id Field start -->
+							<div class="form-group">
+							<input
+									type="text" class="form-control" id="id" readonly
+									name="id"
+									th:classappend="${#fields.hasErrors('id') ? 'is-invalid': ''}"
+									th:field="*{id}">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('id')}" th:text="${e}">
+								</div>
+							</div>
+
+
+							<!--  1 stationName Field start -->
+							<div class="form-group">
+								<label for="stationName">Enter stationName</label> <input
+									type="text" class="form-control" id="stationName"
+									name="stationName"
+									th:classappend="${#fields.hasErrors('stationName') ? 'is-invalid': ''}"
+									th:field="*{stationName}" placeholder="Enter stationName">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('stationName')}" th:text="${e}">
+								</div>
+							</div>
+
+							<!-- End stationName field -->
+
+
+							<!--  2 stationCode Field start -->
+							<div class="form-group">
+								<label for="stationCode">Enter Station Code</label> <input
+									type="text" class="form-control" id="stationCode" readonly
+									name="stationCode"
+									th:classappend="${#fields.hasErrors('stationCode') ? 'is-invalid': ''}"
+									th:field="*{stationCode}" placeholder="Enter Station code">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('stationCode')}" th:text="${e}">
+								</div>
+							</div>
+
+							<!-- End stationCode field -->
+
+
+
+							<!--  3 emailAddress Field start -->
+							<div class="form-group">
+								<label for="emailAddress">Enter Email Address </label> <input
+									type="text" class="form-control" id="emailAddress"
+									name="emailAddress"
+									th:classappend="${#fields.hasErrors('emailAddress') ? 'is-invalid': ''}"
+									th:field="*{emailAddress}" placeholder="Enter Email Address">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('emailAddress')}" th:text="${e}">
+								</div>
+							</div>
+
+							<!-- End emailAddress field -->
+
+
+
+
+
+							<!--  4 contactNumber Field start -->
+							<div class="form-group">
+								<label for="contactNumber">Enter Contact Number </label> <input
+									type="text" class="form-control" id="contactNumber"
+									name="contactNumber"
+									 maxlength="10" minlength="10"
+									pattern="[0-9]{10}" placeholder="Enter 10-digit number"
+									required
+									th:classappend="${#fields.hasErrors('contactNumber') ? 'is-invalid': ''}"
+									th:field="*{contactNumber}" >
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('contactNumber')}" th:text="${e}">
+								</div>
+							</div>
+
+							<!-- End contactNumber field -->
+
+
+
+
+
+							<!--  5 emergencyNumber Field start -->
+							<div class="form-group">
+								<label for="emergencyNumber">Enter Emergency Number </label> <input
+									type="text" class="form-control" id="emergencyNumber"
+									name="emergencyNumber"
+									th:classappend="${#fields.hasErrors('emergencyNumber') ? 'is-invalid': ''}"
+									th:field="*{emergencyNumber}"
+									placeholder="Enter Emergency Number">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('emergencyNumber')}"
+									th:text="${e}"></div>
+							</div>
+
+							<!-- End emergencyNumber field -->
+
+
+
+							<!--  6 faxNumber Field start -->
+							<div class="form-group">
+								<label for="faxNumber">Enter Fax Number </label> <input
+									type="text" class="form-control" id="faxNumber"
+									name="faxNumber"
+									th:classappend="${#fields.hasErrors('faxNumber') ? 'is-invalid': ''}"
+									th:field="*{faxNumber}" placeholder="Enter faxNumber ">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('faxNumber')}" th:text="${e}">
+								</div>
+							</div>
+
+							<!-- End faxNumber field -->
+
+
+
+
+
+
+
+							<!--  7 addressLine1 Field start -->
+							<div class="form-group">
+								<label for="addressLine1">Enter AddressLine1 </label> <input
+									type="text" class="form-control" id="addressLine1"
+									name="addressLine1"
+									th:classappend="${#fields.hasErrors('addressLine1') ? 'is-invalid': ''}"
+									th:field="*{addressLine1}" placeholder="Enter addressLine1 ">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('addressLine1')}" th:text="${e}">
+								</div>
+							</div>
+
+							<!-- End faxNumber field -->
+
+
+
+
+							<!--  8 addressLine2 Field start -->
+							<div class="form-group">
+								<label for="addressLine2">Enter AddressLine2 </label> <input
+									type="text" class="form-control" id="addressLine2"
+									name="addressLine2"
+									th:classappend="${#fields.hasErrors('addressLine2') ? 'is-invalid': ''}"
+									th:field="*{addressLine2}" placeholder="Enter addressLine2 ">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('addressLine2')}" th:text="${e}">
+								</div>
+							</div>
+
+							<!-- End AddressLine2 field  -->
+
+
+							<!--  9 landMark Field start -->
+							<div class="form-group">
+								<label for="landMark">Enter LandMark </label> <input type="text"
+									class="form-control" id="landMark" name="landMark"
+									th:classappend="${#fields.hasErrors('landMark') ? 'is-invalid': ''}"
+									th:field="*{landMark}" placeholder="Enter addressLine2 ">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('landMark')}" th:text="${e}">
+								</div>
+							</div>
+
+							<!-- End landMark field landMark -->
+
+
+							<!--  9 area Field start -->
+							<div class="form-group">
+								<label for="area">Enter Area </label> <input type="text"
+									class="form-control" id="area" name="area"
+									th:classappend="${#fields.hasErrors('area') ? 'is-invalid': ''}"
+									th:field="*{area}" placeholder="Enter area ">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('area')}" th:text="${e}"></div>
+							</div>
+
+							<!-- End landMark field area -->
+
+
+
+
+							<!--  10 city Field start -->
+							<div class="form-group">
+								<label for="area">Enter City </label> <input type="text"
+									class="form-control" id="city" name="city"
+									th:classappend="${#fields.hasErrors('city') ? 'is-invalid': ''}"
+									th:field="*{city}" placeholder="Enter city ">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('city')}" th:text="${e}"></div>
+							</div>
+
+							<!-- End city field city -->
+
+
+
+
+
+							<!--  11 state Field start -->
+							<div class="form-group">
+								<label for="state">Enter State </label> <input type="text"
+									class="form-control" id="state" name="state"
+									th:classappend="${#fields.hasErrors('state') ? 'is-invalid': ''}"
+									th:field="*{state}" placeholder="Enter state ">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('state')}" th:text="${e}"></div>
+							</div>
+
+							<!-- End city field state -->
+
+
+
+							<!--  12 pincode Field start -->
+							<div class="form-group">
+								<label for="pincode">Enter pincode </label> <input type="text"
+									class="form-control" id="pincode" name="pincode"
+									th:classappend="${#fields.hasErrors('pincode') ? 'is-invalid': ''}"
+									th:field="*{pincode}" placeholder="Enter pincode ">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('pincode')}" th:text="${e}">
+								</div>
+							</div>
+
+							<!-- End city field pincode -->
+
+
+
+
+
+
+
+
+
+							<!-- ===================================================================================================== -->
+							<div class="container text-center">
+								<button class="btn btn-success text-white" type="submit">Update</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-warning text-white" type="reset">Reset</button>
+
+
+							</div>
+
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

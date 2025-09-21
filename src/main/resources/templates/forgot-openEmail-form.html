@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+
+	<section class="banner">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="my-card">
+						<!-- Display success/error message -->
+
+						<!-- Display success/error message -->
+			<div class="container text-center" id="box1">
+
+						<div th:if="${successMessage}" class="success alert-success"
+							th:text="${successMessage}"></div>
+						<div th:if="${errorMessage}" class="error alert-danger"
+							th:text="${errorMessage}"></div>
+
+</div>
+
+
+
+						<div class="container text-center">
+							<img style="width: 10%;" th:src="@{/images/user-profile.png}" />
+						</div>
+
+
+
+						<h3 class="text-center m-3" >Your Registered Email !!</h3>
+						<form th:action="@{/onlinecrimereportingsystem/forgotpassword/forgot}" method="post">
+								<div class="form-group">
+								<input class="form-control" type="email" id="emailid" name="emailid"
+								placeholder="Enter Email Addres here " required>
+								
+								</div>		
+								<div class="container text-center">
+								<button class="btn btn-warning" type="submit">Send OTP</button>
+								</div>
+						</form>		
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

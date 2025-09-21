@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+<section class="banner">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="card shadow-lg p-4">
+
+                    <h2 class="text-center text-primary">About Online Crime Reporting System</h2>
+                    <hr>
+
+                    <p>
+                        The <b>Online Crime Reporting System</b> is a web-based application that enables 
+                        citizens to register complaints easily and securely without the need to visit 
+                        a police station physically. This system helps reduce paperwork, ensures faster 
+                        response, and provides transparency between the public and law enforcement authorities.
+                    </p>
+
+                    <h4>Key Features:</h4>
+                    <ul>
+                        <li>Easy registration of complaints from anywhere.</li>
+                        <li>Secure login for users, police officers, and administrators.</li>
+                        <li>Ability to upload supporting documents and images as evidence.</li>
+                        <li>Real-time tracking of complaint status.</li>
+                        <li>Admin panel to manage users, officers, and cases.</li>
+                        <li>Awareness articles on crime prevention and safety.</li>
+                    </ul>
+
+                    <h4>Objectives:</h4>
+                    <p>
+                        - To digitalize the crime reporting process.<br>
+                        - To maintain a transparent and accountable system.<br>
+                        - To improve efficiency in case handling and monitoring.<br>
+                        - To provide faster communication between citizens and police officers.
+                    </p>
+
+                    <h4>Future Enhancements:</h4>
+                    <p>
+                        In the future, the system can be extended with features such as mobile app integration, 
+                        AI-based crime pattern detection, real-time chat support with officers, and multilingual 
+                        support for a wider reach.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

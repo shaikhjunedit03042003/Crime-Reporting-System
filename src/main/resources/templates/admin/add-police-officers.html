@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{admin/admin-base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+
+	<section class="banner">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="my-card">
+						<!-- Display success/error message -->
+						<div class="container text-center" id="box1">
+
+							<div th:if="${successMessage}" class="success alert-success"
+								th:text="${successMessage}"></div>
+							<div th:if="${errorMessage}" class="error alert-danger"
+								th:text="${errorMessage}"></div>
+
+						</div>
+						<div class="container text-center">
+							<img style="width: 10%;" th:src="@{/images/police1.png}" />
+						</div>
+						<h1 class="text-center">Police Officers Entry Form !!</h1>
+						<form novalidate
+							th:action="@{/onlinecrimereportingsystem/admins/addpoliceofficer/addpoliceofficer}"
+							method="post" th:object="${policeOfficerDTO}"  enctype="multipart/form-data">
+
+
+
+
+							<!--  1 name Field start -->
+							<div class="form-group">
+								<label for="name">Enter PoliceOfficer Name </label> <input
+									type="text" class="form-control" id="name" name="name"
+									th:classappend="${#fields.hasErrors('name') ? 'is-invalid': ''}"
+									th:field="*{name}"  required placeholder="Enter Name">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('name')}" th:text="${e}"></div>
+							</div>
+
+							<!-- End name field -->
+
+
+							<!--  2 badgeNumber Field start -->
+							<div class="form-group">
+								<label for="badgeNumber">Enter BadgeNumber</label> <input
+									type="text" class="form-control" id="badgeNumber"
+									name="badgeNumber"
+									th:classappend="${#fields.hasErrors('badgeNumber') ? 'is-invalid': ''}"
+									th:field="*{badgeNumber}" required placeholder="Enter badgeNumber ">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('badgeNumber')}" th:text="${e}">
+								</div>
+							</div>
+
+							<!-- End stationCode field -->
+
+
+
+							<!--  3 emailAddress Field start -->
+							<div class="form-group">
+								<label for="email">Enter Email Address </label> <input
+									type="email" class="form-control" id="email" name="email"
+									th:classappend="${#fields.hasErrors('email') ? 'is-invalid': ''}"
+									th:field="*{email}" required placeholder="Enter Email Address">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('email')}" th:text="${e}"></div>
+							</div>
+
+							<!-- End emailAddress field -->
+
+
+							<!-- type="tel" id="phone" name="phone" 
+         maxlength="10" minlength="10" 
+         pattern="[0-9]{10}" 
+         placeholder="Enter 10-digit number" required -->
+
+
+							<!--  4 contactNumber Field start -->
+							<div class="form-group">
+								<label for="contactNumber">Enter Contact Number </label> <input
+									type="tel" class="form-control" id="contactNumber"
+									name="contactNumber"
+									th:classappend="${#fields.hasErrors('contactNumber') ? 'is-invalid': ''}"
+									th:field="*{contactNumber}" maxlength="10" minlength="10"
+									pattern="[0-9]{10}" placeholder="Enter 10-digit number"
+									required>
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('contactNumber')}" th:text="${e}">
+								</div>
+							</div>
+
+							<!-- End contactNumber field -->
+
+							<!--  4 rank Field start -->
+							<div class="form-group">
+								<label for="rank">Enter Rank </label> <select
+									class="form-control" id="rank" name="rank" th:field="*{rank}"
+									th:classappend="${#fields.hasErrors('rank')} ? 'is-invalid' : ''">
+									<option value="0">Select Rank</option>
+									<option value="Inspector of Police">Inspector of
+										Police</option>
+
+									<option value="Sub-Inspector of Police (SI)">Sub-Inspector
+										of Police (SI)</option>
+
+									<option value="Assistant Sub-Inspector of Police (ASI)">Assistant
+										Sub-Inspector of Police (ASI)</option>
+									<option value="Head Constable">Head
+										Constable-Inspector of Police (SI)">Sub-Inspector of Police
+										(SI)</option>
+
+									<option value="Constable">Constable</option>
+
+
+
+								</select>
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('rank')}" th:text="${e}"></div>
+							</div>
+
+							<!-- End rank field -->
+
+							<!-- policeStation Type -->
+							<div class="form-group">
+								<label for="policeStationselect">Select Police Station</label> <select
+									class="form-control" id="policeStationselect"
+									name="policeStationselect" th:field="*{policeStationselect}"
+									th:classappend="${#fields.hasErrors('policeStationselect')} ? 'is-invalid' : ''">
+									<option value="0">Select a Crime Type</option>
+								</select>
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('policeStationselect')}"
+									th:text="${e}"></div>
+							</div>
+							
+							
+							<!--Police officer Iamges  -->
+							<div class="form-group">
+                            <label for="policeImages">Upload Police Image</label>
+                            <input type="file"
+                                   class="form-control"
+                                   id="policeImages"
+                                   name="policeImages"
+                                   multiple
+                                   accept="image/*"
+                                   th:classappend="${#fields.hasErrors('policeImages') ? 'is-invalid' : ''}">
+                            <div class="invalid-feedback"
+                                 th:each="e : ${#fields.errors('policeImages')}"
+                                 th:text="${e}"></div>
+                            <small class="form-text text-muted">Select  image (e.g., JPG, PNG) as Police Images. Max 5MB .</small>
+                        </div>
+							
+
+
+							<!-- ===================================================================================================== -->
+							<div class="container text-center">
+								<button class="btn btn-success text-white" type="submit">Submit</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-warning text-white" type="reset">Reset</button>
+
+
+							</div>
+
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

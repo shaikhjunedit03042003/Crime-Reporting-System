@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+body {
+	background: #e2e2e2 !important;
+}
+
+.bg-primary {
+	background: #0080c0 !important;
+}
+
+.banner {
+	width: 100%;
+	height: 93vh;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url('../images/banner.jpg');
+	background-size: cover;
+	background-position: center;
+}
+
+.my-card {
+	padding: 20px;
+	background: #FFFFFF;
+}
+
+.bg-primary-userdashboard {
+	background: #0080c0 !important;
+}
+
+.success {
+	color: green;
+}
+
+.error {
+	color: red;
+}
+#box{
+	height: 10px;
+	widows: 60px;
+}
+.btn {
+  min-width: 100px;
+}

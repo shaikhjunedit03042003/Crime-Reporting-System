@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{admin/admin-base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+
+	<section class="banner">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="my-card">
+						<!-- Display success/error message -->
+						<div class="container text-center" id="box1">
+
+							<div th:if="${successMessage}" class="success alert-success"
+								th:text="${successMessage}"></div>
+							<div th:if="${errorMessage}" class="error alert-danger"
+								th:text="${errorMessage}"></div>
+
+						</div>
+						<div class="container text-center">
+							<img style="width: 10%;" th:src="@{/images/police1.png}" />
+						</div>
+						<h1 class="text-center">Add Crime Types !!</h1>
+						<form novalidate
+							th:action="@{/onlinecrimereportingsystem/admins/add-crime}"
+							method="post" th:object="${crimetypeDTO}">
+
+
+
+
+							<!--  1 crimeType Field start -->
+							<div class="form-group">
+								<label for="crimeType">Enter Crime Typed</label> <input
+									type="text" class="form-control" id="crimeType"
+									name="crimeType"
+									th:classappend="${#fields.hasErrors('crimeType') ? 'is-invalid': ''}"
+									th:field="*{crimeType}" placeholder="Enter crimeType">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('crimeType')}" th:text="${e}">
+								</div>
+							</div>
+
+
+<!--  1 crimeType Field start -->
+							<div class="form-group">
+								<label for="description">Enter Description</label> <input
+									type="text" class="form-control" id="description"
+									name="description"
+									th:classappend="${#fields.hasErrors('description') ? 'is-invalid': ''}"
+									th:field="*{description}" placeholder="Enter description">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('description')}" th:text="${e}">
+								</div>
+							</div>
+							
+
+
+							<!-- ===================================================================================================== -->
+							<div class="container text-center">
+								<button class="btn btn-success text-white" type="submit">Submit</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-warning text-white" type="reset">Reset</button>
+
+
+							</div>
+
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>
