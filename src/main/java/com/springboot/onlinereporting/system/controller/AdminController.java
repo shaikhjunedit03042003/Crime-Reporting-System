@@ -4,10 +4,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,16 +24,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.springboot.onlinereporting.system.BO.ComplaintBO;
 import com.springboot.onlinereporting.system.BO.PoliceStationBO;
+import com.springboot.onlinereporting.system.DTO.ComplaintDTO;
 import com.springboot.onlinereporting.system.DTO.CrimeTypedDTO;
 import com.springboot.onlinereporting.system.DTO.PoliceStationEntryDTO;
+import com.springboot.onlinereporting.system.DTO.UserDTO;
 import com.springboot.onlinereporting.system.entities.PoliceStationEntry;
 import com.springboot.onlinereporting.system.entities.UserEntity;
 import com.springboot.onlinereporting.system.helper.Message;
 import com.springboot.onlinereporting.system.mapper.PoliceStationMapper;
 import com.springboot.onlinereporting.system.repositories.CrimeTypeRepository;
+import com.springboot.onlinereporting.system.services.ComplaintServce;
 import com.springboot.onlinereporting.system.services.CrimeTypedService;
 import com.springboot.onlinereporting.system.services.PoliceStationEntryService;
+import com.springboot.onlinereporting.system.springsecurity.principal.UserPrincipal;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -47,6 +55,9 @@ public class AdminController {
 
 	@Autowired
 	private CrimeTypedService crimeTypedService;
+
+	@Autowired
+	private ComplaintServce complaintServce;
 
 	// admin home controller
 	@GetMapping({ "", "/dashboard", "/adminhome" })
@@ -274,6 +285,66 @@ public class AdminController {
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete");
 		}
+	}
+
+	// My Account
+	@GetMapping("/adminmyaccount")
+	public String myAccount(Model model) {
+		UserEntity user = null;
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && auth.isAuthenticated()) {
+			// userDetails is your UserPrincipal
+			UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
+			user = userPrincipal.getUser(); // expose getUser() in UserPrincipal
+
+			model.addAttribute("loggedUser", user);
+		}
+		// UserEntity user = (UserEntity) session.getAttribute("loggedUser");
+		System.out.println("admin in my account==" + user);
+		if (user != null) {
+			UserDTO userDTO = UserDTO.of().agreement(user.isAgreement()).emailid(user.getEmailid()).id(user.getId())
+					.message(user.getMessage()).username(user.getUsername()).build();
+			model.addAttribute("userDTO", userDTO);
+			return "admin/admin-my-account";
+		}
+		System.out.println("user:=" + user);
+		model.addAttribute("errorMessage", "Please Login First!!");
+		return "login";
+	}
+
+	@GetMapping("/adminviewsAllsComplaints")
+	public String viewAllComplains(Model model, HttpSession session) {
+		try {
+			List<ComplaintBO> bocomplaints = complaintServce.getAllComplaints();
+			System.out.println("At Admin get All Complaints bocomplaints:=="+bocomplaints);
+
+			List<ComplaintDTO> complaints = null;
+			if (bocomplaints != null) {
+				complaints = bocomplaints.stream()
+						.map(bo -> ComplaintDTO.of().createdAt(bo.getCreatedAt()).crimeType(bo.getCrimeType())
+								.description(bo.getDescription()).id(bo.getId())
+								.liveLocationLink(bo.getLiveLocationLink()).location(bo.getLocation())
+								.policeStation(bo.getPoliceStation()).status(bo.getStatus()).title(bo.getTitle())
+								.updatedAt(bo.getUpdatedAt()).userId(bo.getUserId()).username(bo.getUsername())
+								.description(bo.getDescription())
+
+								.build())
+						.collect(Collectors.toList());
+
+				model.addAttribute("complaints", complaints);
+
+				return "admin/admin-view-complaints";
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("error", "Error:=" + e.getMessage());
+			return "error";
+
+		}
+
+		return "";
 	}
 
 }

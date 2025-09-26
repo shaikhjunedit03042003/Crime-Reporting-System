@@ -1,8 +1,10 @@
 package com.springboot.onlinereporting.system.controller;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,19 +12,25 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.onlinereporting.system.BO.UserBO;
 import com.springboot.onlinereporting.system.DTO.LoginUserDTO;
+import com.springboot.onlinereporting.system.DTO.PoliceOfficerDTO;
 import com.springboot.onlinereporting.system.DTO.UserDTO;
 import com.springboot.onlinereporting.system.entities.UserEntity;
 import com.springboot.onlinereporting.system.helper.Message;
+import com.springboot.onlinereporting.system.repositories.PoliceOfficerRepository;
+import com.springboot.onlinereporting.system.services.PoliceOfficerService;
 import com.springboot.onlinereporting.system.services.UserService;
 import com.springboot.onlinereporting.system.springsecurity.service.JWTService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -39,6 +47,13 @@ public class HomeController {
 	private UserService userService;
 	@Autowired
 	private PasswordEncoder encoder;
+
+	@Autowired
+	private PoliceOfficerService policeOfficerService;
+
+	@Autowired
+	private PoliceOfficerRepository policeOfficerRepository;
+
 	// Home Handler
 
 	@GetMapping({ "", "/", "/home" })
@@ -49,17 +64,16 @@ public class HomeController {
 	// Login Handler
 
 	@GetMapping("/login")
-	public String loginPage(Model model, 
-	        @RequestParam(value = "error", required = false) String error,
-	        @RequestParam(value = "logout", required = false) String logout) {
-	    model.addAttribute("user", new LoginUserDTO());
-	    if (error != null) {
-	        model.addAttribute("errorMessage", "Invalid username or password!");
-	    }
-	    if (logout != null) {
-	        model.addAttribute("successMessage", "You have been logged out successfully.");
-	    }
-	    return "login";
+	public String loginPage(Model model, @RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "logout", required = false) String logout) {
+		model.addAttribute("user", new LoginUserDTO());
+		if (error != null) {
+			model.addAttribute("errorMessage", "Invalid username or password!");
+		}
+		if (logout != null) {
+			model.addAttribute("successMessage", "You have been logged out successfully.");
+		}
+		return "login";
 	}
 
 	// do lohgin
@@ -79,7 +93,7 @@ public class HomeController {
 
 	// Sigup handler
 	@GetMapping("/signup")
-	public String signup(Model model, HttpSession session) {
+	public String signup(Model model, HttpSession session,HttpServletRequest request) {
 		model.addAttribute("user", new UserDTO());
 		model.addAttribute("title", "SignUp- Online Crime Reporting System");
 		session.removeAttribute("message");
@@ -92,9 +106,13 @@ public class HomeController {
 	public String doregister(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult error,
 			@RequestParam(value = "image", required = false) MultipartFile image,
 			@RequestParam(value = "agreement", defaultValue = "false") boolean agreement,
-			@RequestParam(value = "secretKey", required = false) String secretKey, Model model, HttpSession session) {
+			@RequestParam(value = "secretKey", required = false) String secretKey,
+			@RequestParam(value = "secretKeypolice", required = false) String secretKeyPolice, Model model,
+			HttpSession session) {
 
 		System.out.println("image==" + image);
+		System.out.println("secretKey==" + secretKey);
+		System.out.println("secretKeyPolice==" + secretKeyPolice);
 		try {
 			if (!agreement) {
 				System.out.println("You have not agreed to the terms and conditions!");
@@ -136,6 +154,15 @@ public class HomeController {
 					model.addAttribute("user", userDTO);
 					return "signup";
 				}
+			} else if ("POLICE".equals(userDTO.getRole())) {
+				System.out.println("!policeOfficerRepository.existsByBadgeNumber(secretKey)"
+						+ (!policeOfficerRepository.existsByBadgeNumber(secretKey)));
+				if (secretKey == null || !policeOfficerRepository.existsByBadgeNumber(secretKeyPolice)) {
+					model.addAttribute("errorMessage",
+							"Invalid Police BadgeNumber Please Correct BadgeNumber Enter...");
+					model.addAttribute("user", userDTO);
+					return "signup";
+				}
 			}
 
 			String encodedPassword = encoder.encode(userDTO.getPassword());
@@ -149,7 +176,11 @@ public class HomeController {
 			userBO.setRole(userDTO.getRole());
 			userBO.setMessage(userDTO.getMessage());
 			userBO.setAgreement(agreement);
-			userBO.setSecretKey(secretKey);
+			if (secretKey.isEmpty() || secretKey == null) {
+				userBO.setSecretKey(secretKeyPolice);
+			} else {
+				userBO.setSecretKey(secretKey);
+			}
 			userBO.setImage(imageBytes);
 			userBO.setFilename(image.getName());
 			userBO.setContentType(image.getContentType());
@@ -192,7 +223,6 @@ public class HomeController {
 		}
 	}
 
-	
 	/*
 	 * @PostMapping("/login") public String dologin(@Valid @ModelAttribute("user")
 	 * LoginUserDTO user, BindingResult error, Model model, HttpSession session) {
@@ -243,4 +273,39 @@ public class HomeController {
 		return "login";
 	}
 
+	@GetMapping("/allpoliceofficers-contact-us")
+	public String getAllPoliceOfficer(Model model) {
+		List<PoliceOfficerDTO> policeOfficerDTOs = policeOfficerService.getAllPoliceOfficers();
+		System.out.println("all Police gettin gor All policeOfficerDTOs==" + policeOfficerDTOs);
+		try {
+			if (policeOfficerDTOs != null) {
+				model.addAttribute("policeOfficerDTOs", policeOfficerDTOs);
+				return "contact-us";
+
+			} else {
+				model.addAttribute("errorMessage", "Police Officers NOT FOund!");
+				return "contact-us";
+
+			}
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Error:=" + e.getMessage());
+
+			return "contact-us";
+
+		}
+
+	}
+
+	@GetMapping("/allpoliceofficers-contact-us/image/{id}")
+	@ResponseBody
+	public ResponseEntity<byte[]> getPoliceImage(@PathVariable Long id) {
+
+		System.out.println(" ID:=" + id);
+		return policeOfficerRepository.findById(id).map(police -> {
+			byte[] image = police.getImgaes();
+			String contentType = police.getContentType() != null ? police.getContentType() : "image/jpeg";
+			System.out.println("Police images  image==" + image);
+			return ResponseEntity.ok().header("Content-Type", contentType).body(image);
+		}).orElse(ResponseEntity.notFound().build());
+	}
 }

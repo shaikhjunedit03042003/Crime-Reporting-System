@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -16,21 +15,8 @@ import com.springboot.onlinereporting.system.entities.UserEntity;
 import com.springboot.onlinereporting.system.repositories.UserRepository;
 import com.springboot.onlinereporting.system.springsecurity.service.JWTService;
 
-import java.io.IOException;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
-
-import com.springboot.onlinereporting.system.springsecurity.service.JWTService;
-
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -48,6 +34,7 @@ public class JwtAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler
 		// Generate JWT with the authenticated user's email (username)
 		String emailId = authentication.getName(); // This is the emailid from login form
 		String token = jwtService.generateToken(emailId);
+		System.out.println("Generated JWT Token=="+token);
 		UserEntity user = userRepository.findByEmailid(emailId).get();
 		if (user != null) {
 			// Store User entity in session
@@ -77,10 +64,26 @@ public class JwtAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler
 		boolean isAdmin = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
 				.anyMatch(role -> role.equals("ROLE_ADMIN"));
 
+		boolean isPolice = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+				.anyMatch(role -> role.equals("ROLE_POLICE"));
+
+		boolean isUsers = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+				.anyMatch(role -> role.equals("ROLE_USER"));
+
+		
+		
+		System.out.println("isAdmin=="+isAdmin);
+		System.out.println("isPolice=="+isPolice);
+		System.out.println("isUserrs=="+isUsers);
 		if (isAdmin) {
 			return "/onlinecrimereportingsystem/admins/dashboard";
-		} else {
+		} else if (isPolice) {
+			return "/onlinecrimereportingsystem/police/dashboard";
+		} else if (isUsers) {
 			return "/onlinecrimereportingsystem/users/dashboard";
+		} else {
+			return "/onlinecrimereportingsystem/login";
+
 		}
 	}
 }

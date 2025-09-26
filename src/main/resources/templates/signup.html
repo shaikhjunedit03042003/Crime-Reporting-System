@@ -14,12 +14,12 @@
 						<!-- Display success/error message -->
 						<div class="container text-center" id="box1">
 
-						<div th:if="${successMessage}" class="success alert-success"
-							th:text="${successMessage}"></div>
-						<div th:if="${errorMessage}" class="error alert-danger"
-							th:text="${errorMessage}"></div>
+							<div th:if="${successMessage}" class="success alert-success"
+								th:text="${successMessage}"></div>
+							<div th:if="${errorMessage}" class="error alert-danger"
+								th:text="${errorMessage}"></div>
 
-</div>
+						</div>
 						<div class="container text-center">
 							<img style="width: 10%;" th:src="@{/images/sign-up.png}" />
 						</div>
@@ -60,7 +60,7 @@
 
 							</div>
 
-							
+
 
 							<div class="container text-center">
 								<button type="button" class="btn btn-secondary m-2"
@@ -114,8 +114,7 @@
 									th:each="e :${#fields.errors('image')}" th:text="${e}"></div>
 							</div>
 							<!-- End Image Upload Field -->
-
-							<!--Role Selection Field   -->
+							<!-- Role Selection Field -->
 							<div class="form-group">
 								<label for="role">Select Role</label> <select
 									class="form-control" id="role" name="role" th:field="*{role}"
@@ -123,26 +122,33 @@
 									onChange="toggleSecretKeyField()">
 									<option value="USER">USER</option>
 									<option value="ADMIN">ADMIN</option>
+									<option value="POLICE">POLICE</option>
 								</select>
 								<div class="invalid-feedback"
 									th:each="e: ${#fields.errors('role')}" th:text="${e}"></div>
 							</div>
 
-
-							<!-- Secret key field show only for Admin -->
+							<!-- Secret Key Field for Admin -->
 							<div class="form-group" style="display: none;"
 								id="secretKeyField">
-								<label for="secretKey">Enter Admin Secret Key</label> <input
-									type="password" class="form-control" id="secretKey"
+								<label for="adminSecretKey">Enter Admin Secret Key</label> <input
+									type="text" class="form-control" id="adminSecretKey"
 									name="secretKey"
-									th:appendclass="${#fields.hasErrors() ? 'in-invalid' :''}"
+									th:classappend="${#fields.hasErrors('secretKey') ? 'is-invalid' : ''}"
 									placeholder="Enter Admin Secret Key" />
-
 								<div class="invalid-feedback"
-									th:each="e : ${#fields.errors('secretKey')}" th:text="${e}"></div>
-
+									th:each="e: ${#fields.errors('secretKey')}" th:text="${e}"></div>
 							</div>
 
+							<!-- Badge Number Field for Police -->
+							<div class="form-group" style="display: none;"
+								id="secretKeyForPolice">
+								<label for="policeBadgeNumber">Enter Badge Number</label> <input
+									type="text" class="form-control" id="policeBadgeNumber"
+									name="secretKeypolice"
+										placeholder="Enter Badge Number" />
+								
+							</div>
 
 							<!-- Terms & Condition Check   -->
 							<div class="form-group form-check">

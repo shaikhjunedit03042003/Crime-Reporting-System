@@ -29,7 +29,7 @@ public class PoliceStationEntryDTO {
 	private String contactNumber;
 
 	@NotBlank(message = "EmergencyNumber cannot be empty")
-	@Pattern(regexp = "^\\d{2,4}\\s*/\\s*\\d{2,4}$", message = "EmergencyNumber must be between 3 and 10 digits")
+	@Pattern(regexp = "^\\d{3,10}$", message = "EmergencyNumber must be between 3 and 10 digits")
 	private String emergencyNumber;
 
 	@NotBlank(message = "faxNumber cannot be empty")

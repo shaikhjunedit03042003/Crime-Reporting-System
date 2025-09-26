@@ -92,7 +92,7 @@ public class UserComplaintsController {
 
 	@GetMapping("/logcomplaints")
 	public String logComplaints(Model model) {
-		UserEntity loggedUser=null;
+		UserEntity loggedUser = null;
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null && auth.isAuthenticated()) {
 			// userDetails is your UserPrincipal
@@ -101,9 +101,10 @@ public class UserComplaintsController {
 
 			model.addAttribute("loggedUser", loggedUser);
 		}
-		System.out.println("loggedUser=="+loggedUser);
+		System.out.println("loggedUser==" + loggedUser);
 		if (loggedUser == null) {
-			//session.setAttribute("message", new Message("Please login first", "alert-danger"));
+			// session.setAttribute("message", new Message("Please login first",
+			// "alert-danger"));
 			model.addAttribute("errorMessage", "Please login first");
 			return "redirect:/onlinecrimereportingsystem/login";
 		}
@@ -117,7 +118,7 @@ public class UserComplaintsController {
 
 	@PostMapping("/logcomplaints")
 	public String logComplaintssave(@Valid @ModelAttribute("logcomplaints") ComplaintDTO complaintDTO,
-			BindingResult errors, HttpSession session, Model model) {
+			BindingResult errors, Model model) {
 
 		System.out.println("In post of log complaints");
 		System.out.println("complaintDTO===" + complaintDTO);
@@ -132,7 +133,8 @@ public class UserComplaintsController {
 
 		UserEntity user = userRepository.getUserById(complaintDTO.getUserId());
 		if (user == null) {
-			session.setAttribute("message", new Message("User not Found !!", "alert-danger"));
+			/// session.setAttribute("message", new Message("User not Found !!",
+			/// "alert-danger"));
 			model.addAttribute("errorMessage", "User not Found !!");
 			return "users/log-complaints";
 
@@ -198,18 +200,24 @@ public class UserComplaintsController {
 	// Views All Complaints
 
 	@GetMapping("/viewallcomplaints")
-	public String viewAllComplaints(Model model, HttpSession session) {
+	public String viewAllComplaints(Model model) {
 		System.out.println("View all controller");
-		UserEntity loggedUser = (UserEntity) session.getAttribute("loggedUser");
-		System.out.println("loggedUser==" + loggedUser);
+		UserEntity loggedUser = null;
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && auth.isAuthenticated()) {
+			// userDetails is your UserPrincipal
+			UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
+			loggedUser = userPrincipal.getUser(); // expose getUser() in UserPrincipal
 
+			model.addAttribute("loggedUser", loggedUser);
+		}
+		System.out.println("loggedUser==" + loggedUser);
 		if (loggedUser == null) {
-			// session.setAttribute("message", new Message("Please log in first",
+			// session.setAttribute("message", new Message("Please login first",
 			// "alert-danger"));
-			model.addAttribute("errorMessage", "Please log in first");
+			model.addAttribute("errorMessage", "Please login first");
 			return "redirect:/onlinecrimereportingsystem/login";
 		}
-
 		System.out.println("loggedUser ID==" + loggedUser.getId());
 
 		System.out.println("================================8888888888888888888888");
@@ -226,6 +234,7 @@ public class UserComplaintsController {
 		Long complaintId = Long.parseLong(id);
 		System.out.println("View all controller");
 		UserEntity loggedUser = (UserEntity) session.getAttribute("loggedUser");
+		session.setAttribute("loggedUser", loggedUser);
 		System.out.println("loggedUser==" + loggedUser);
 
 		if (loggedUser == null) {
@@ -243,6 +252,7 @@ public class UserComplaintsController {
 
 		System.out.println("complaintDTO:===" + complaintDTO);
 		model.addAttribute("logcomplaints", complaintDTO);
+		model.addAttribute("loggedUser", loggedUser);
 		model.addAttribute("title", "Update Complaint");
 
 		return "users/update-complaints";

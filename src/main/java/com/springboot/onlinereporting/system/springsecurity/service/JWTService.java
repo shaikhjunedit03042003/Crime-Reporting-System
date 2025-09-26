@@ -17,9 +17,9 @@ import java.util.function.Function;
 @Service
 public class JWTService {
 
-	private static final long TOKEN_EXPIRY_MS = 1000 * 60 * 10; // 10 minutes
+	private static final long tokenExpiry_nm = 1000 * 60 * 10; // 10 minutes
 	public long getTokenExpiryMs() {
-	    return TOKEN_EXPIRY_MS;
+	    return tokenExpiry_nm;
 	}
 
 	@Value("${jwt.secret}")
@@ -28,7 +28,7 @@ public class JWTService {
 	public String generateToken(String username) {
 		Map<String, Object> claims = new HashMap<>();
 		return Jwts.builder().setClaims(claims).setSubject(username).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRY_MS)).signWith(getKey()).compact();
+				.setExpiration(new Date(System.currentTimeMillis() + tokenExpiry_nm)).signWith(getKey()).compact();
 	}
 
 	private SecretKey getKey() {

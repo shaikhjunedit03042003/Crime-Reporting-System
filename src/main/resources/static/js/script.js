@@ -1,18 +1,22 @@
 // Wait until DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
     const roleElement = document.getElementById('role');
+    console.log("roleElement===", roleElement);
     const secretKeyField = document.getElementById('secretKeyField');
+    const secretKeyForPolice = document.getElementById('secretKeyForPolice');
 
     function toggleSecretKeyField() {
         if (secretKeyField) {
             secretKeyField.style.display = roleElement.value === 'ADMIN' ? 'block' : 'none';
+        }
+        if (secretKeyForPolice) {
+            secretKeyForPolice.style.display = roleElement.value === 'POLICE' ? 'block' : 'none';
         }
     }
 
     toggleSecretKeyField();
     roleElement.addEventListener('change', toggleSecretKeyField);
 });
-
 // Request OTPaa
 function requestOTP() {
     const emailid = document.getElementById('emailid').value;
@@ -88,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         submitButton.disabled = false;
                         otpError.style.display = "none";
 
-                        alert("✅ OTP Verified Successfully!");
+                        alert("OTP Verified Successfully  !!!!!!");
                     } else {
                         submitButton.disabled = true;
                         otpError.style.display = "block";

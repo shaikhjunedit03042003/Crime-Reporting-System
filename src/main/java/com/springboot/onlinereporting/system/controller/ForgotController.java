@@ -3,6 +3,7 @@ package com.springboot.onlinereporting.system.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import com.springboot.onlinereporting.system.helper.Message;
 import com.springboot.onlinereporting.system.repositories.UserRepository;
 import com.springboot.onlinereporting.system.services.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -26,9 +28,12 @@ public class ForgotController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private PasswordEncoder encoder;
 
 	@GetMapping("/forgot")
 	public String openEmail() {
@@ -90,7 +95,7 @@ public class ForgotController {
 			}
 
 		}
-		model.addAttribute("errorMessage","InValid OTP Please Check!!");
+		model.addAttribute("errorMessage", "InValid OTP Please Check!!");
 		session.setAttribute("message", new Message("InValid OTP", "alert-danger"));
 		return "verify-otp";
 
@@ -102,49 +107,106 @@ public class ForgotController {
 
 		String emailid = (String) session.getAttribute("myEmail");
 		UserEntity user = userService.getUserByUsername(emailid).get();
-		user.setPassword(newPassword);
+		String encodedPassword = encoder.encode(newPassword);
+
+		user.setPassword(encodedPassword);
 		userService.saveUsers(user);
-		model.addAttribute("successMessage","Password Forgot Successfully");
+		model.addAttribute("successMessage", "Password Forgot Successfully");
 		session.setAttribute("message", new Message("Password Forgot Successfully", "alert-success"));
 		model.addAttribute("user", new UserDTO());
 		return "login";
 	}
-	
-	//goes the cahge password page hereeee
+
+	// goes the cahge password page hereeee
 	@GetMapping("/changepassword")
-	public String chagePassword() {
+	public String chagePassword(Model model, HttpSession session) {
+		System.out.println("Goes the passsword change Modules");
+		try {
+			UserEntity loggedUser = (UserEntity) session.getAttribute("loggedUser");
+			if (loggedUser != null) {
+				model.addAttribute("loggedUser", loggedUser);
+				String role = loggedUser.getRole();
+				if (role.equals("USER")) {
+					return "users/password-update";
+				} else if (role.equals("POLICE")) {
+					return "polices/change-password";
 
-		return "users/password-update"; 
+				} else {
+
+					return "admin/change-password";
+				}
+			} else {
+
+				model.addAttribute("errorMeaage", "Please Login First !!!");
+				return "redirect:/onlinecrimereportingsystem/login";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMeaage", "Error: " + e.getMessage());
+			return "redirect:/onlinecrimereportingsystem/login";
+		}
 	}
-	
-	
-	//change passworddddddd
-	
-    @PostMapping("/password-update")
-    public String updatePassword(@RequestParam("emailid") String emailid,
-                                 @RequestParam("oldpassword") String oldPassword,
-                                 @RequestParam("password") String newPassword,
-                                 Model model,
-                                 HttpSession session) {
+	// change passworddddddd
 
-        Optional<UserEntity> optionalUser = userRepository.findByEmailid(emailid);
+	@PostMapping("/password-update")
+	public String updatePassword(HttpServletRequest request, @RequestParam("oldpassword") String oldPassword,
+			@RequestParam("password") String newPassword, Model model, HttpSession session) {
 
-        if (optionalUser.isEmpty()) {
-            model.addAttribute("errorMessage", "User not found with this email!");
-            return "users/password-update"; 
-        }
+		System.out.println("Change Password Module Come junedddddddd");
+		String URL = null;
+		String role = null;
+		System.out.println("Request:=" + request.getRequestURL());
+		String requestURL = request.getRequestURL().toString();
+		UserEntity loggedUser = (UserEntity) session.getAttribute("loggedUser");
 
-        UserEntity user = optionalUser.get();
+		if (loggedUser != null) {
+			try {
+				String emailid = loggedUser.getEmailid();
+				Optional<UserEntity> optionalUser = userRepository.findByEmailid(emailid);
 
-      
-        if (!user.getPassword().equals(oldPassword)) {
-            model.addAttribute("errorMessage", "Old password is incorrect!");
-            return "users/password-update"; 
-        }
+				if (optionalUser.isEmpty()) {
+					model.addAttribute("errorMessage", "User not found with this email!");
+					return requestURL;
+				}
 
-        user.setPassword(newPassword); 
-        userRepository.save(user);
-        model.addAttribute("successMessage", "Password updated successfully!");
-        return "users/password-update"; 
-    }
+				UserEntity user = optionalUser.get();
+				if (user != null) {
+
+					role = user.getRole();
+					System.out.println("UserRole=="+role);
+					if ("USER".equals(role)) {
+						URL = "users/password-update";
+					} else if ("ADMIN".equals(role)) {
+						URL = "admin/change-password";
+					} else if ("POLICE".equals(role)) {
+						URL = "polices/change-password";
+					}
+
+					if (!encoder.matches(oldPassword, user.getPassword())) {
+						model.addAttribute("errorMessage", "Old password is incorrect!");
+						return URL;
+					}
+
+					String encodedNewPassword = encoder.encode(newPassword);
+					user.setPassword(encodedNewPassword);
+					userRepository.save(user);
+
+					model.addAttribute("successMessage", "Password updated successfully!");
+					return URL;
+				}
+			} catch (Exception e) {
+
+				e.printStackTrace();
+				model.addAttribute("errorMeaage", "Error: " + e.getMessage());
+				return "redirect:/onlinecrimereportingsystem/login";
+			}
+			model.addAttribute("errorMessage", "So,e thing Went Wrong...");
+			return "redirect:/onlinecrimereportingsystem/login";
+		} else {
+			model.addAttribute("errorMessage", "Please Login First");
+			return "redirect:/onlinecrimereportingsystem/login";
+		}
+	}
+
 }

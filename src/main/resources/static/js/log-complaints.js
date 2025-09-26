@@ -14,7 +14,7 @@ $(document).ready(function() {
 
             if (responseJson && Object.keys(responseJson).length > 0) {
                 $.each(responseJson, function(key, value) {
-                    $('<option>').val(key).text(value).appendTo($select);
+                    $('<option>').val(value).text(value).appendTo($select);
                 });
             } else {
                 console.warn("No crime types received from server.");
@@ -39,7 +39,7 @@ $(document).ready(function() {
 				$('<option>').val("0").text("select a Police Station").appendTo($select);
 				if(responseJson && Object.keys(responseJson).length>0){
 					$.each(responseJson,function(key,value){
-						$('<option>').val(key).text(value).appendTo($select);
+						$('<option>').val(value).text(value).appendTo($select);
 					});
 				}else{
 					console.warn("No Police Station Are Available.....");

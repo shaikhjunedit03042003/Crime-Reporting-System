@@ -10,12 +10,14 @@ import com.springboot.onlinereporting.system.entities.EvidenceImageEntity;
 import com.springboot.onlinereporting.system.entities.UserEntity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(builderMethodName = "of")
 
 public class ComplaintBO {
 

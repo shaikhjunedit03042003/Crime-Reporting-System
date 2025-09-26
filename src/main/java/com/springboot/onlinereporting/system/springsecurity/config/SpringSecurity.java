@@ -1,8 +1,11 @@
+
 package com.springboot.onlinereporting.system.springsecurity.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -18,64 +21,63 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.springboot.onlinereporting.system.springsecurity.filter.JwtFilter;
 import com.springboot.onlinereporting.system.springsecurity.service.MyUserDetailsService;
 
-
 @Configuration
 @EnableWebSecurity
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class SpringSecurity {
 
-    @Autowired
-    private MyUserDetailsService userDetailsService;
+	@Autowired
+	private MyUserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtFilter jwtFilter;
+	@Autowired
+	private JwtFilter jwtFilter;
 
-    @Autowired
-    private JwtAuthFailureHandler failureHandler;
+	@Autowired
+	private JwtAuthFailureHandler failureHandler;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthSuccessHandler successHandler)
-            throws Exception {
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthSuccessHandler successHandler)
+			throws Exception {
 
-        return http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/onlinecrimereportingsystem/do_register","/onlinecrimereportingsystem/otp/**","/onlinecrimereportingsystem","/onlinecrimereportingsystem/","/onlinecrimereportingsystem/home",
-                        		"/onlinecrimereportingsystem/about","/onlinecrimereportingsystem/signup", "/onlinecrimereportingsystem/login", "/css/**", "/js/**","/images/**").permitAll()
-                        .requestMatchers("/onlinecrimereportingsystem/admins/**").hasRole("ADMIN")
-                        .requestMatchers("/onlinecrimereportingsystem/users/**").hasRole("USER")
-                        .anyRequest().authenticated())
-                .formLogin(login -> login
-                        
-                        .loginPage("/onlinecrimereportingsystem/login")
-                        .loginProcessingUrl("/onlinecrimereportingsystem/login") 
-                        .usernameParameter("emailid") 
-                        .passwordParameter("password") 
-                        .successHandler(successHandler)
-                        .failureHandler(failureHandler)
-                        .permitAll())
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/onlinecrimereportingsystem/login?logout")
-                        .deleteCookies("jwt")
-                        .permitAll())
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .build();
-    }
+		return http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth
+				.requestMatchers("/onlinecrimereportingsystem/do_register", "/onlinecrimereportingsystem/otp/**",
+						"/onlinecrimereportingsystem", "/onlinecrimereportingsystem/allpoliceofficers-contact-us/**",
+						"/onlinecrimereportingsystem/", "/onlinecrimereportingsystem/home",
+						"/onlinecrimereportingsystem/forgotpassword/**", "/onlinecrimereportingsystem/about",
+						"/onlinecrimereportingsystem/signup", "/onlinecrimereportingsystem/login", "/css/**", "/js/**",
+						"/images/**").permitAll()
+				.requestMatchers("/onlinecrimereportingsystem/admins/**").hasRole("ADMIN")
+				.requestMatchers("/onlinecrimereportingsystem/users/**").hasAnyRole("USER", "ADMIN", "POLICE")
+				.requestMatchers("/onlinecrimereportingsystem/police/**").hasAnyRole("POLICE", "ADMIN")
 
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService);
-        return provider;
-    }
+				.anyRequest().authenticated()).formLogin(login -> login
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
+						.loginPage("/onlinecrimereportingsystem/login")
+						.loginProcessingUrl("/onlinecrimereportingsystem/login").usernameParameter("emailid")
+						.passwordParameter("password").successHandler(successHandler).failureHandler(failureHandler)
+						.permitAll())
+				.logout(logout -> logout.logoutSuccessUrl("/onlinecrimereportingsystem/login?logout")
+						.deleteCookies("jwt").permitAll())
+				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).build();
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(10);
-    }
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		provider.setPasswordEncoder(passwordEncoder());
+		provider.setUserDetailsService(userDetailsService);
+		return provider;
+	}
+
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+		return config.getAuthenticationManager();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder(10);
+	}
+
 }

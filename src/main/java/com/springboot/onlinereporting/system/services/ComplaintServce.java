@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,7 +86,7 @@ public class ComplaintServce {
 		List<ComplaintEntity> complaintEntities = complaintsRepository.getAllComplaints(userId, emailid);
 
 		return complaintEntities.stream()
-				.map(c -> ComplaintDTO.builder().id(c.getId()).userId(c.getUser().getId()).title(c.getTitle())
+				.map(c -> ComplaintDTO.of().id(c.getId()).userId(c.getUser().getId()).title(c.getTitle())
 						.username(c.getUser().getUsername()).description(c.getDescription()).status(c.getStatus())
 						.createdAt(c.getCreatedAt()).updatedAt(c.getUpdatedAt()).crimeType(c.getCrimeType())
 						.location(c.getLocation()).liveLocationLink(c.getLiveLocationLink()).userEmail(c.getUserEmail())
@@ -107,9 +108,11 @@ public class ComplaintServce {
 
 		ComplaintEntity complaintEntity = complaintsRepository.getComplaint(complaitId, userId, emailid);
 
-		ComplaintDTO complaintDTO = convertEntityToDTO(complaintEntity);
+		if (complaintEntity != null) {
+			return convertEntityToDTO(complaintEntity);
 
-		return complaintDTO;
+		}
+		return null;
 	}
 
 	public boolean deleteComplaints(Long complaintId) {
@@ -124,6 +127,58 @@ public class ComplaintServce {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		byte[] hash = digest.digest(data);
 		return Base64.getEncoder().encodeToString(hash);
+	}
+
+	// Fetch complaints by police station code
+	public List<ComplaintBO> getComplaintsByPoliceStation(String policeCode) {
+
+		List<ComplaintEntity> allcomplains = complaintsRepository.getAllComplaintsByPoliceStationCode(policeCode);
+		// System.out.println("Police statiion Entity=="+allcomplains);
+		if (allcomplains != null && !allcomplains.isEmpty()) {
+
+			System.out.println();
+			return allcomplains.stream().map(complaint -> ComplaintBO.of().createdAt(complaint.getCreatedAt())
+					.crimeType(complaint.getCrimeType()).description(complaint.getDescription())
+					// .evidenceImages(complaint.getEvidenceImages())
+					.id(complaint.getId()).liveLocationLink(complaint.getLiveLocationLink())
+					.location(complaint.getLocation()).policeStation(complaint.getPoliceStation())
+					.status(complaint.getStatus()).title(complaint.getTitle()).updatedAt(complaint.getUpdatedAt())
+					.user(complaint.getUser()).userEmail(complaint.getUserEmail()).userId(complaint.getUser().getId())
+					.username(complaint.getUsername())
+
+					.build()
+
+			).collect(Collectors.toList());
+
+		}
+
+		return Collections.emptyList();
+	}
+
+	public List<ComplaintBO> getAllComplaints() {
+		List<ComplaintEntity> allComplaints = complaintsRepository.findAll();
+		if (allComplaints != null) {
+
+			return allComplaints.stream().map(complaints -> ComplaintBO.of()
+					.createdAt(complaints.getCreatedAt())
+					.crimeType(complaints.getCrimeType())
+					.description(complaints.getDescription())
+					//.evidenceImages(complaints.getEvidenceImages())
+					.id(complaints.getId())
+					.liveLocationLink(complaints.getLiveLocationLink())
+					.location(complaints.getLocation())
+					.policeStation(complaints.getPoliceStation())
+					.status(complaints.getStatus())
+					.title(complaints.getTitle())
+					.updatedAt(complaints.getUpdatedAt())
+					.user(complaints.getUser())
+					.userEmail(complaints.getUserEmail())
+					.username(complaints.getUser().getUsername())
+					.userId(complaints.getUser().getId())
+					.build()).collect(Collectors.toList());
+		}
+
+		return null;
 	}
 
 	private ComplaintDTO convertEntityToDTO(ComplaintEntity complaintEntity) {
@@ -165,8 +220,5 @@ public class ComplaintServce {
 
 		return complaintEntity;
 	}
-	// Fetch complaints by police station code
-    public List<ComplaintEntity> getComplaintsByPoliceStation(String policeCode) {
-        return complaintsRepository.getAllComplaintsByPoliceStationCode(policeCode);
-    }
+
 }
