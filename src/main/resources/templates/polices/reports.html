@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{polices/police-base::layout(~{::section})}">
+<head>
+    <title>Reports & Analytics</title>
+</head>
+<body>
+    <section>
+        <h1>Reports & Analytics</h1>
+        <div>
+            <h2>FIR Summary</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>FIR Number</th>
+                        <th>Crime Type</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="fir : ${firs}">
+                        <td th:text="${fir.firNumber}"></td>
+                        <td th:text="${fir.crimeType}"></td>
+                        <td th:text="${fir.status}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a th:href="@{/onlinecrimereportingsystem/police/reports/summary}" class="btn btn-primary">Download Summary Report</a>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,9 +1,12 @@
 package com.springboot.onlinereporting.system.DTO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springboot.onlinereporting.system.entities.ComplaintEntity;
 import com.springboot.onlinereporting.system.entities.PoliceStationEntry;
 
 import jakarta.persistence.Column;
@@ -15,6 +18,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode.Exclude;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -55,5 +59,9 @@ public class PoliceOfficerDTO {
 	
 	private String filename;
 	private String contentType;
+	
+	@Exclude
+    private List<ComplaintEntity> assignedComplaints=new ArrayList<>();  
+
 
 }

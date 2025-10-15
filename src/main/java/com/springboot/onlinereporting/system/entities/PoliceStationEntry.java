@@ -41,9 +41,9 @@ public class PoliceStationEntry {
 	private String contactNumber;
 	private String emergencyNumber;
 	private String faxNumber;
-	private String AddressLine1;
-	private String AddressLine2;
-	private String LandMark;
+	private String addressLine1;
+	private String addressLine2;
+	private String landMark;
 	private String area;
 	private String city;
 	private String state;

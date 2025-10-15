@@ -42,26 +42,41 @@ public class ForgotController {
 	}
 
 	@PostMapping("/forgot")
-	public String varifyEmail(@RequestParam("emailid") String email, HttpSession session) {
+	public String varifyEmail(@RequestParam("emailid") String email, HttpSession session, Model model) {
 		System.out.println("emaild id: " + email);
-		OTPGenerator otpGenerator = new OTPGenerator();
-		int otp = otpGenerator.optGenerate();
-		SendEmail sendEmail = new SendEmail();
-		String subject = "OTP From Online Crime Reporting System";
-		String to = email;
-		String message = "<div style='border:1px solid #2e2e2;padding:20px'>" + "OTP    " + "<b>" + otp + "</div>";
-		boolean status = sendEmail.sendEmail(to, subject, message);
-		System.out.println("Come here testingggg case status: " + status);
+		UserEntity existingUser = userRepository.findByEmailid(email).orElse(null);
+		if (existingUser != null) {
 
-		if (status) {
-			session.setAttribute("message", new Message("We have Sent OTP to you Email....", "alert-success"));
-			session.setAttribute("myOTP", otp);
-			session.setAttribute("myEmail", email);
-			return "verify-otp";
+			OTPGenerator otpGenerator = new OTPGenerator();
+			int otp = otpGenerator.optGenerate();
+			SendEmail sendEmail = new SendEmail();
+			String subject = "OTP From Online Crime Reporting System";
+			String to = email;
+			String message = "<div style='border:1px solid #2e2e2;padding:20px'>" + "OTP    " + "<b>" + otp + "</div>";
+			boolean status = sendEmail.sendEmail(to, subject, message);
+			System.out.println("Come here testingggg case status: " + status);
+
+			if (status) {
+				session.setAttribute("successMessage",
+						new Message("We have Sent OTP to you Email....", "alert-success"));
+
+				model.addAttribute("successMessage", "We have Sent OTP to you Email....");
+				session.setAttribute("myOTP", otp);
+				session.setAttribute("myEmail", email);
+				return "verify-otp";
+			} else {
+				session.setAttribute("successMessage",
+						new Message("Oops Some thing Wrong Please Check yourEmail id", "alert-danger"));
+				model.addAttribute("successMessage",
+						new Message("Oops Some thing Wrong Please Check yourEmail id", "alert-danger"));
+				return "forgot-openEmail-form";
+			}
 		} else {
-			session.setAttribute("message",
+			session.setAttribute("errorMessage",
 					new Message("Oops Some thing Wrong Please Check yourEmail id", "alert-danger"));
+			model.addAttribute("errorMessage", "User not found with EmailId " + email+"  in the System");
 			return "forgot-openEmail-form";
+
 		}
 
 	}
@@ -174,7 +189,7 @@ public class ForgotController {
 				if (user != null) {
 
 					role = user.getRole();
-					System.out.println("UserRole=="+role);
+					System.out.println("UserRole==" + role);
 					if ("USER".equals(role)) {
 						URL = "users/password-update";
 					} else if ("ADMIN".equals(role)) {

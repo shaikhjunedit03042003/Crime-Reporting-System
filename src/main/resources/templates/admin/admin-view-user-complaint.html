@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{admin/admin-base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+
+</head>
+<body>
+	<section
+		class="banner d-flex justify-content-center align-items-center">
+
+		<div class="container"
+			style="margin-top: 20px; height: 90%; width: 80%;">
+
+
+			
+
+
+				<div class="col-md-10 offset-md-2" style="margin-top: 50px;">
+					<marquee direction="right"
+						style="color: red; font-size: 20px; display: block; background: #4bf542;">
+						Hello, Welcome to My Website OnlineCrime Reporting System </marquee>
+					<div class="my-card">
+						<div class="container text-center" id="box1">
+
+							<div th:if="${successMessage}" class="success alert-success"
+								th:text="${successMessage}"></div>
+							<div th:if="${errorMessage}" class="error alert-danger"
+								th:text="${errorMessage}"></div>
+
+						</div>
+						<div class="container text-center">
+							<img style="width: 10%;" th:src="@{/images/police1.png}" />
+						</div>
+						<h1 class="text-center">Assign Complaints !!</h1>
+						<form novalidate
+							th:action="@{/onlinecrimereportingsystem/admins/adminhandlecomplaints/assignPoliceOfficer}"
+							method="post" th:object="${logcomplaints}">
+
+
+
+
+
+							<div class="form-group">
+								<label for="userId">Complaint Id</label> <input type="text"
+									readonly th:value="${logcomplaints.id}" class="form-control"
+									id="id" name="id"
+									th:classappend="${#fields.hasErrors('id') ? 'is-invalid' : ''}"
+									th:field="*{id}">
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('id')}" th:text="${e}"></div>
+							</div>
+
+
+
+
+							<div class="form-group">
+								<label for="userId">User Id</label> <input type="text" readonly
+									th:value="${logcomplaints.userId}" class="form-control"
+									id="userId" name="userId"
+									th:classappend="${#fields.hasErrors('userId') ? 'is-invalid' : ''}"
+									th:field="*{userId}">
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('userId')}" th:text="${e}"></div>
+							</div>
+
+							<div class="form-group">
+								<label for="username">User Name</label> <input type="text"
+									readonly th:value="${logcomplaints.username}"
+									class="form-control" id="username" name="userId"
+									th:classappend="${#fields.hasErrors('username') ? 'is-invalid' : ''}"
+									th:field="*{username}">
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('username')}" th:text="${e}"></div>
+							</div>
+
+
+							<!--  1 title Field start -->
+							<div class="form-group">
+								<label for="title">Title</label> <input type="text" readonly
+									class="form-control" id="title" name="title"
+									th:classappend="${#fields.hasErrors('title') ? 'is-invalid': ''}"
+									th:field="*{title}" placeholder="Enter title">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('title')}" th:text="${e}"></div>
+							</div>
+
+							<!-- description -->
+
+							<div class="form-group">
+								<label for="description">Description</label>
+								<textarea rows="10" class="form-control" id="description"
+									readonly name="description"
+									th:classappend="${#fields.hasErrors('description') ? 'is-invalid': ''}"
+									th:field="*{description}" placeholder="Enter description"></textarea>
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('description')}" th:text="${e}"></div>
+							</div>
+
+
+<!-- Status
+
+							<div class="form-group">
+								<label for="status">Status</label> <input type="text"
+									id="status" name="status" readonly
+									th:value="${logcomplaints.status}" th:field="*{status}">
+
+								<div class="invalid-feedback"
+									th:each="e :${#fields.errors('status')}" th:text="${e}"></div>
+							</div>
+-->
+
+
+							<!-- Statusss -->
+							
+							<!-- Select Police Station Type -->
+							<div class="form-group" >
+							<label for="status">Status: </label>
+							<select class="form-control" id="status" name="status">
+									<option 
+									th:value="${logcomplaints.status}"
+									th:text="${logcomplaints.status}"></option>
+								<option value="PENDING">PENDING</option>
+								<option value="ASSIGNED">ASSIGNED</option>
+								<option value="RESOLVED">RESOLVED</option>	
+								<option value="APPROVED">APPROVED</option>	
+								<option value="REJECTED">REJECTED</option>						
+							</select>
+						</div>
+						
+						
+						
+					
+							
+							
+							
+							
+							<!-- createdAt -->
+
+							<div class="form-group">
+								<label for="createdAt">Created At</label> <input
+									type="datetime-local" class="form-control" id="createdAt"
+									readonly name="createdAt"
+									th:value="${#temporals.format(logcomplaints.createdAt, 'yyyy-MM-dd HH:mm')}"
+									th:classappend="${#fields.hasErrors('createdAt') ? 'is-invalid' : ''}"
+									placeholder="Select Date and Time">
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('createdAt')}" th:text="${e}"></div>
+							</div>
+
+							
+
+							<!-- User Email -->
+							<div class="form-group">
+								<label for="userEmail">User Email</label> <input type="email"
+									readonly th:value="${logcomplaints.userEmail}"
+									class="form-control" id="userEmail" th:field="*{userEmail}"
+									placeholder="Enter your email"
+									th:classappend="${#fields.hasErrors('userEmail') ? 'is-invalid' : ''}">
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('userEmail')}" th:text="${e}"></div>
+							</div>
+
+							<!-- Live Location Link -->
+
+
+							<div class="form-group">
+
+								<br> <label for="liveLocationLink">Live Location
+									Link</label> <input type="url" class="form-control" readonly
+									id="liveLocationLink" th:field="*{liveLocationLink}"
+									placeholder="Here Google Maps location link"
+									th:classappend="${#fields.hasErrors('liveLocationLink') ? 'is-invalid' : ''}">
+
+
+							</div>
+
+							<!-- Crime Type -->
+							<div class="form-group">
+								<label for="crimeType">Crime Type</label> <input type="text"
+									class="form-control" id="crimeType" name="crimeType" readonly
+									th:value="${logcomplaints.crimeType}"
+									th:classappend="${#fields.hasErrors('crimeType') ? 'is-invalid' : ''}"
+									placeholder="">
+
+							</div>
+
+
+
+
+
+
+							<!-- Police Station Type -->
+							<div class="form-group">
+								<label for="policeStation">Police Station</label> <input type="text"
+									class="form-control" id="policeStation"
+									th:field="*{policeStation}" th:value="${policeStation}"
+									th:classappend="${#fields.hasErrors('policeStation')} ? 'is-invalid' : ''">
+								
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('policeStation')}" th:text="${e}"></div>
+							</div>
+
+
+							
+							<!-- Select Police Station Type -->
+							<div class="form-group">
+								<label for="policeOfficers">Select Police Officers</label> <select
+									class="form-control" id="policeOfficers"
+									name="policeOfficers" onChange="getPoliceOfficer()"
+									
+									>
+									<option value="0">Select policeOfficers</option>
+								</select>
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('policeStation')}" th:text="${e}"></div>
+							</div>
+							
+
+
+
+<div th:if="${#lists.isEmpty(images)}">
+									<p>No evidence images available.</p>
+								</div>
+
+								<div th:each="img : ${images}">
+									<img
+										th:src="'data:' + ${img.fileType} + ';base64,' + ${img.data}"
+										th:alt="${img.fileName}"
+										style="width: 400px; height: 400px; margin: 10px; border-radius: 8px; border: 1px solid #ccc;">
+								</div>
+
+
+
+
+
+							<!-- ===================================================================================================== -->
+							<div class="container text-center">
+								<button class="btn btn-success text-white" type="submit">Assign </button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-warning text-white" type="reset">Reset</button>
+
+
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+</body>
+</html>

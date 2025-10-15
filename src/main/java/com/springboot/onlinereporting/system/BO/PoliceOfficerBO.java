@@ -1,7 +1,11 @@
 package com.springboot.onlinereporting.system.BO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.springboot.onlinereporting.system.entities.ComplaintEntity;
+import com.springboot.onlinereporting.system.entities.PoliceOfficerEntity;
 import com.springboot.onlinereporting.system.entities.PoliceStationEntry;
 
 import lombok.AllArgsConstructor;
@@ -35,5 +39,10 @@ public class PoliceOfficerBO {
 	
 	private String filename;
 	private String contentType;
+	
+	
+    private List<ComplaintEntity> assignedComplaints=new ArrayList<>();  
+
+	
 	
 }

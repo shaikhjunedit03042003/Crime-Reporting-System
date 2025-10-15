@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/admin-base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <section class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="my-card">
+                        <!-- Heading -->
+                        <h1 class="text-center mb-4">Crime Types List</h1>
+                        <!-- Display Crime Types -->
+                        <div class="mt-4">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Crime Type</th>
+                                        <th>Description</th>
+                                        <th>Action</th> <!-- New column for delete button -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="crime : ${crimeTypes}">
+                                        <td th:text="${crime.crimeType}"></td>
+                                        <td th:text="${crime.description}"></td>
+                                        <td>
+                                            <a th:href="@{/onlinecrimereportingsystem/admins/delete-crime/{id}(id=${crime.id})}" 
+                                               class="btn btn-danger btn-sm">Delete</a>
+                                        </td>
+                                    </tr>
+                                    <tr th:unless="${crimeTypes}" th:if="${crimeTypes == null or #lists.isEmpty(crimeTypes)}">
+                                        <td colspan="3" class="text-center">No crime types available</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Back Button -->
+                        <div class="text-center mt-3">
+                            <a href="/onlinecrimereportingsystem/admins/add-crime" class="btn btn-primary">Back to Add Crime</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

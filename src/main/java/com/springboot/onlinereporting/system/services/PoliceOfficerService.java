@@ -1,6 +1,8 @@
 package com.springboot.onlinereporting.system.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -197,4 +199,19 @@ public class PoliceOfficerService {
 		}
 		return null;
 	}
+	//get Police Officer According to  the Police Station
+	public Map<Long, String> getPoliceOfficersByStation(String policeStation) {
+		
+		Map<Long, String> policeOfficernameandId=new HashMap<>();
+		List<PoliceOfficerEntity> list=policeOfficerRepository.findByPoliceStationselect(policeStation);
+		for(PoliceOfficerEntity entity:list) {
+			policeOfficernameandId.put(entity.getId(), entity.getName());
+			
+		}
+		return policeOfficernameandId;
+		
+		
+	}
+	
+	
 }

@@ -27,7 +27,7 @@
 							<tr>
 								<th>Police Officer Id</th>
 								<th>Police Officer Name</th>
-								<th>Police Badge Number</th>
+								
 								<th>Rank</th>
 								<th>Email</th>
 								<th>Contact Number</th>
@@ -45,13 +45,12 @@
 							<tr th:each="policeOfficerDTO : ${policeOfficerDTOs}">
 								<td th:text="${policeOfficerDTO.id}"></td>
 								<td th:text="${policeOfficerDTO.name}"></td>
-								<td th:text="${policeOfficerDTO.badgeNumber}"></td>
 								<td th:text="${policeOfficerDTO.rank}"></td>
 								<td th:text="${policeOfficerDTO.email}"></td>
 								<td th:text="${policeOfficerDTO.contactNumber}"></td>
 								<td th:text="${policeOfficerDTO.policeStationselect}"></td>
 								<td>		 		
-			<img th:src="@{/onlinecrimereportingsystem/police/image/{id}(id=${policeOfficerDTO.id})}" 
+			<img th:src="@{/onlinecrimereportingsystem/police/policeofficer/image/{id}(id=${policeOfficerDTO.id})}"
      alt="Police Profile"
 			style="width: 100px; height: 100px; object-fit: cover; margin-right: 10px;" /></td>
 

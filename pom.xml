@@ -96,25 +96,32 @@
 		</dependency>
 
 		<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <version>1.18.34</version> <!-- Use the latest version -->
-    <scope>provided</scope>
-</dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.32</version> <!-- Use latest version -->
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- MySQL Connector for MySQL 5.7+ -->
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+
+
   <dependency>
     <groupId>mysql</groupId>
     <artifactId>mysql-connector-java</artifactId>
     <version>8.0.33</version>
 </dependency>
-		
-	<!--	<dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>5.1.49</version>
+		<!--
+            <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>5.1.49</version>
+
     
-    </dependency>--> <!-- Replace with the specific 5.x version you need -->
+    </dependency>
+
+
+		-->
 
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -143,8 +150,17 @@
     <artifactId>jakarta.mail</artifactId>
     <version>2.0.1</version>
 </dependency>
-
-
+<dependency>
+    <groupId>org.thymeleaf.extras</groupId>
+    <artifactId>thymeleaf-extras-java8time</artifactId>
+    <version>3.0.4.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>itextpdf</artifactId>
+    <version>5.5.13</version>
+</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

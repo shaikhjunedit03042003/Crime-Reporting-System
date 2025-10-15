@@ -7,12 +7,14 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.onlinereporting.system.entities.EvidenceImageEntity;
+import com.springboot.onlinereporting.system.entities.PoliceOfficerEntity;
 import com.springboot.onlinereporting.system.entities.UserEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString.Exclude;
 
 @Data
 @AllArgsConstructor
@@ -36,6 +38,9 @@ public class ComplaintBO {
 	private String liveLocationLink;
 	private String policeStation;
 
-	private List<MultipartFile> evidenceImages;
+	private List<EvidenceImageEntity> evidenceImages=new ArrayList<>();
 	// For processing uploaded files}
+	@Exclude
+	private PoliceOfficerEntity assignedOfficer;
+
 }

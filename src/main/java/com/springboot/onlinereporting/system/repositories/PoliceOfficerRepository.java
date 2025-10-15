@@ -20,5 +20,10 @@ public interface PoliceOfficerRepository extends JpaRepository<PoliceOfficerEnti
 
 	public PoliceOfficerEntity findByBadgeNumber(String bagdeNumber);
 
+	public List<PoliceOfficerEntity> findByPoliceStationselect(String policeStation);
+	
+
+
+
 
 }

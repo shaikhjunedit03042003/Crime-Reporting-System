@@ -1,50 +1,42 @@
 package com.springboot.onlinereporting.system.entities;
 
-import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name = "evidence_images")
+@Table(name = "images")
+@Data
 public class EvidenceImageEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "image_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "complaint_id", nullable = false)
-    private ComplaintEntity complaint;
-
-    @Column(name = "file_name", nullable = false)
+    @Column(nullable = false)
     private String fileName;
 
-    @Column(name = "image_data", columnDefinition = "LONGBLOB")
-    private byte[] imageData; // For BLOB storage
+    @Column(nullable = false)
+    private String contentType;
 
-    @Column(name = "content_type")
-    private String contentType; // e.g., image/jpeg
-
-    @Column(name = "file_size")
+    @Column(nullable = false)
     private Long fileSize;
 
-    @Column(name = "upload_date", columnDefinition = "DATETIME")
-    private LocalDateTime uploadDate;
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] content;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "complaint_id")
+    private ComplaintEntity complaints;
 
-    @Column(name = "hash_value")
-    private String hashValue; // For forensic integrity (e.g., SHA-256)
+    @Column(columnDefinition = "DATETIME")
+    private Timestamp uploadDate = new Timestamp(System.currentTimeMillis());
+
+    // Custom getter for formatted date
+    public String getFormattedUploadDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(uploadDate);
+    }
 }

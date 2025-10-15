@@ -51,8 +51,13 @@
 							th:href="@{/onlinecrimereportingsystem/admins/add-crime}"
 							href="#">Add Crime Typed</a> <a class="dropdown-item"
 							th:href="@{/onlinecrimereportingsystem/admins/addpoliceofficer}"
-							href="#">Add Police Officers</a> <a class="dropdown-item" href="#">View
-							Article Book</a> <a class="dropdown-item" th:href="@{/onlinecrimereportingsystem/admins/addpoliceofficer/viewsAllPoliceOfficers}" href="#">All Police
+							href="#">Add Police Officers</a> 
+							
+							<a class="dropdown-item" href="#" th:href="@{/onlinecrimereportingsystem/admins/display-crime}">View
+							CrimeTypes</a> 
+							
+							
+							<a class="dropdown-item" th:href="@{/onlinecrimereportingsystem/admins/addpoliceofficer/viewsAllPoliceOfficers}" href="#">All Police
 							Officers</a> <a class="dropdown-item" th:href="@{/onlinecrimereportingsystem/admins/viewspolicestations}" href="#">All Police
 							Station</a>
 
@@ -65,7 +70,7 @@
 					aria-expanded="false"> Complaints </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item"
-							th:href="@{/onlinecrimereportingsystem/admins/adminviewsAllsComplaints}"
+							th:href="@{/onlinecrimereportingsystem/admins/adminhandlecomplaints/adminviewsAllsComplaints}"
 							href="#">View All Complaints</a>
 
 					</div></li>
@@ -93,8 +98,10 @@
 
 
 	<div th:replace="${content}"></div>
-	<!-- Footer -->
+	<!-- Footer
 	<footer>Website Content Managed by Ministry of Home Affairs, Govt. of India. Best viewed in Mozilla Firefox, Google Chrome.</footer>
+	
+	 -->
 	
 
 	<!-- Optional JavaScript -->
@@ -119,6 +126,8 @@
 	 <script th:src="@{/js/views-all-policestation.js}"></script> 
 	 <!-- view-all-police-officers -->
 	 <script th:src="@{/js/view-all-police-officers.js}"></script> 
+	 <!-- getPolicebyPliceStation.js -->
+			 <script th:src="@{/js/admin/getPolicebyPliceStation.js}"></script> 
 		
 	
 

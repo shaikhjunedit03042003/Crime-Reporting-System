@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+	<section class="banner">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 offset-md-1">
+					<div class="my-card">
+						<!-- Heading -->
+						<h1 class="text-center mb-4">Crime Types List</h1>
+						<!-- Display Crime Types -->
+						<div class="mt-4">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Crime Id</th>
+										<th>Crime Type</th>
+										<th>Description</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="crime : ${crimeTypes}">
+										<td th:text="${crime.id}"></td>
+
+										<td th:text="${crime.crimeType}"></td>
+										<td th:text="${crime.description}"></td>
+
+									</tr>
+									<tr th:unless="${crimeTypes}"
+										th:if="${crimeTypes == null or #lists.isEmpty(crimeTypes)}">
+										<td colspan="3" class="text-center">No crime types
+											available</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

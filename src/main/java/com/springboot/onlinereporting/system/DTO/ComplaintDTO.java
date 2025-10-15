@@ -1,11 +1,13 @@
 package com.springboot.onlinereporting.system.DTO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.springboot.onlinereporting.system.entities.PoliceOfficerEntity;
 import com.springboot.onlinereporting.system.entities.UserEntity;
 
 import jakarta.validation.constraints.Email;
@@ -15,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString.Exclude;
 
 @Data
 @AllArgsConstructor
@@ -27,6 +30,9 @@ public class ComplaintDTO {
 
 	@NotNull(message = "User cannot be Null")
 	private Long userId;
+	
+    private UserEntity user;
+
 
 	private String username;
 
@@ -57,5 +63,8 @@ public class ComplaintDTO {
 
 	private String policeStation;
 
-	private List<MultipartFile> evidenceImages; // For file uploads
+	private List<MultipartFile> evidenceImages=new ArrayList<>(); 
+	@Exclude
+	private PoliceOfficerEntity assignedOfficer;
+
 }

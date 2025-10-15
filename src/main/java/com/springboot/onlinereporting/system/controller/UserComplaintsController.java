@@ -2,6 +2,7 @@ package com.springboot.onlinereporting.system.controller;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,18 +27,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.onlinereporting.system.BO.ComplaintBO;
 import com.springboot.onlinereporting.system.BO.UserBO;
 import com.springboot.onlinereporting.system.DTO.ComplaintDTO;
 import com.springboot.onlinereporting.system.DTO.UserDTO;
 import com.springboot.onlinereporting.system.entities.ComplaintEntity;
+import com.springboot.onlinereporting.system.entities.EvidenceImageEntity;
 import com.springboot.onlinereporting.system.entities.UserEntity;
 import com.springboot.onlinereporting.system.helper.Message;
 import com.springboot.onlinereporting.system.mapper.ComplaintsMapper;
 import com.springboot.onlinereporting.system.repositories.UserRepository;
 import com.springboot.onlinereporting.system.services.ComplaintServce;
 import com.springboot.onlinereporting.system.services.CrimeTypedService;
+import com.springboot.onlinereporting.system.services.EvidenceImageService;
 import com.springboot.onlinereporting.system.services.LocationServce;
 import com.springboot.onlinereporting.system.services.PoliceStationEntryService;
 import com.springboot.onlinereporting.system.services.UserService;
@@ -49,6 +54,9 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/onlinecrimereportingsystem/users")
 public class UserComplaintsController {
+	
+
+	
 	@Autowired
 	private ComplaintsMapper complaintsMapper;
 	@Autowired
@@ -64,6 +72,9 @@ public class UserComplaintsController {
 	private CrimeTypedService crimeTypedService;
 	@Autowired
 	private PoliceStationEntryService policeStationEntryService;
+
+	@Autowired
+	private EvidenceImageService evidenceImageService;
 
 	@Autowired
 	private UserService userService;
@@ -118,9 +129,11 @@ public class UserComplaintsController {
 
 	@PostMapping("/logcomplaints")
 	public String logComplaintssave(@Valid @ModelAttribute("logcomplaints") ComplaintDTO complaintDTO,
-			BindingResult errors, Model model) {
+			@RequestParam("evidenceImages") MultipartFile[] files, BindingResult errors, Model model,RedirectAttributes redirectAttributes) {
 
 		System.out.println("In post of log complaints");
+        System.out.println("Image logcompalints  Controller Juneddd");
+
 		System.out.println("complaintDTO===" + complaintDTO);
 
 		if (errors.hasErrors()) {
@@ -139,7 +152,13 @@ public class UserComplaintsController {
 			return "users/log-complaints";
 
 		}
-
+		if (files.length == 0) {
+			model.addAttribute("errorMessage", "Something went wrong!!");
+			return "users/log-complaints";
+		}
+		// Handle uploaded images
+		List<EvidenceImageEntity> imageEntities = evidenceImageService.getAllEvi();
+		System.out.println("imageEntities===>>>juned testuin hereeeeee" + imageEntities);
 		// Convert DTO to BO
 		ComplaintBO complaintBO = new ComplaintBO();
 		complaintBO.setUserId(complaintDTO.getUserId());
@@ -149,13 +168,13 @@ public class UserComplaintsController {
 		complaintBO.setDescription(complaintDTO.getDescription());
 		complaintBO.setStatus(complaintDTO.getStatus());
 		complaintBO.setCreatedAt(LocalDateTime.now());
-		complaintBO.setUpdatedAt(LocalDateTime.now());
+		complaintBO.setUpdatedAt(complaintDTO.getUpdatedAt());
 		complaintBO.setCrimeType(complaintDTO.getCrimeType());
 		complaintBO.setLocation(complaintDTO.getLocation());
 		complaintBO.setUserEmail(complaintDTO.getUserEmail());
 		complaintBO.setLiveLocationLink(complaintDTO.getLiveLocationLink());
 		complaintBO.setPoliceStation(complaintDTO.getPoliceStation());
-		complaintBO.setEvidenceImages(complaintDTO.getEvidenceImages());
+		complaintBO.setEvidenceImages(imageEntities);
 
 		// Save complaint and images
 
@@ -168,18 +187,62 @@ public class UserComplaintsController {
 
 				model.addAttribute("successMessage",
 						"Complaint logged successfully with ID: " + savedComplaintDTO.getId());
-				return "users/log-complaints";
+				evidenceImageService.saveTempImages();
+				redirectAttributes.addFlashAttribute("successMessage", "Complaint logged successfully with ID: " + savedComplaintDTO.getId());
+				return "redirect:/onlinecrimereportingsystem/users/logcomplaints";
 			} else {
-				model.addAttribute("errorMessage", "Failed to log complaint: Save operation returned null.");
+				redirectAttributes.addFlashAttribute("errorMessage", "Failed to log complaint: Save operation returned null.");
 				return "redirect:/onlinecrimereportingsystem/users/logcomplaints";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("errorMessage", "Failed to log complaint: Error Message." + e.getMessage());
+			redirectAttributes.addFlashAttribute("errorMessage", "Failed to log complaint: Error Message." + e.getMessage());
 			return "redirect:/onlinecrimereportingsystem/users/logcomplaints";
 
 		}
 
+	}
+
+	// Upload the Evidenec
+
+	@PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, Object> uploadImages(@RequestParam("files") MultipartFile[] files) {
+        System.out.println("Image Uploaded in Upload Controller Juneddd");
+        try {
+            evidenceImageService.uploadImages(files);
+            System.out.println("Upload completed for " + files.length + " files");
+            return Collections.singletonMap("success", true); // Return success as JSON
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Collections.singletonMap("error", "Failed to upload images: " + e.getMessage());
+        }
+    }
+
+	@GetMapping(value = "/images", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Map<String, Object>> getAllImages() {
+        return evidenceImageService.getTempImages(); // Implement this in EvidenceImageService
+    }
+
+	// PoliceOfficer Imagesssss
+	@GetMapping("/userimage/{id}")
+	@ResponseBody
+	public ResponseEntity<byte[]> getPoliceImage(@PathVariable Long id) {
+
+		System.out.println(" ID:=" + id);
+		return userRepository.findById(id).map(user -> {
+			System.out.println("USer useer=" + user);
+			byte[] image = user.getImage();
+			String contentType = user.getContentType() != null ? user.getContentType() : "image/jpeg";
+			System.out.println("image==" + image);
+			return ResponseEntity.ok().header("Content-Type", contentType).body(image);
+		}).orElse(ResponseEntity.notFound().build());
+	}
+	@GetMapping(value = "/image/{id}", produces = { MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
+	@ResponseBody
+	public byte[] getImage(@PathVariable Long id) {
+		return evidenceImageService.getImageById(id).map(EvidenceImageEntity::getContent).orElse(new byte[0]);
 	}
 
 	@PostMapping("/save-location")
@@ -264,6 +327,7 @@ public class UserComplaintsController {
 
 		System.out.println("In post of updatess complaints");
 		// Convert DTO to BO
+		complaintDTO.setUpdatedAt(LocalDateTime.now());
 		UserEntity user = userRepository.getUserById(complaintDTO.getUserId());
 		System.out.println("complaintDTO===" + complaintDTO);
 		if (user == null) {

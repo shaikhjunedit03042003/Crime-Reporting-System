@@ -44,9 +44,9 @@ public class SpringSecurity {
 						"/onlinecrimereportingsystem", "/onlinecrimereportingsystem/allpoliceofficers-contact-us/**",
 						"/onlinecrimereportingsystem/", "/onlinecrimereportingsystem/home",
 						"/onlinecrimereportingsystem/forgotpassword/**", "/onlinecrimereportingsystem/about",
-						"/onlinecrimereportingsystem/signup", "/onlinecrimereportingsystem/login", "/css/**", "/js/**",
-						"/images/**").permitAll()
-				.requestMatchers("/onlinecrimereportingsystem/admins/**").hasRole("ADMIN")
+						"/onlinecrimereportingsystem/signup", "/onlinecrimereportingsystem/login",
+						"/onlinecrimereportingsystem/display-crime", "/css/**", "/js/**", "/images/**")
+				.permitAll().requestMatchers("/onlinecrimereportingsystem/admins/**").hasRole("ADMIN")
 				.requestMatchers("/onlinecrimereportingsystem/users/**").hasAnyRole("USER", "ADMIN", "POLICE")
 				.requestMatchers("/onlinecrimereportingsystem/police/**").hasAnyRole("POLICE", "ADMIN")
 
@@ -58,8 +58,7 @@ public class SpringSecurity {
 						.permitAll())
 				.logout(logout -> logout.logoutSuccessUrl("/onlinecrimereportingsystem/login?logout")
 						.deleteCookies("jwt").permitAll())
-				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).build();
+				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).build();
 	}
 
 	@Bean

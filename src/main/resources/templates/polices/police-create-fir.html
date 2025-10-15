@@ -1,0 +1,136 @@
+	<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org" th:replace="~{polices/police-base::layout(~{::section})}">
+	<head>
+	    <meta charset="UTF-8">
+	    <title th:text="${title}">Create FIR from Complaint</title>
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+	    <section class="banner d-flex justify-content-center align-items-center">
+	        <div class="container" style="margin-top: 20px; height: 90%; width: 80%;">
+	            <div class="container text-center" id="box1">
+	                <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}" role="alert"></div>
+	                <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}" role="alert"></div>
+	            </div>
+	            <h1 class="text-center mb-4" style="background-color: white">Create FIR from Complaint</h1>
+	            <div class="card my-card shadow-sm">
+	                <div class="card-body">
+	                    <form th:action="@{/onlinecrimereportingsystem/police/fir/create}" method="post" th:object="${fir}" class="needs-validation">
+	                        <!-- Hidden fields -->
+	                        <input type="hidden" th:field="*{complaintId}" th:value="${logcomplaints.id}" />
+	                        <input type="hidden" th:field="*{userId}" th:value="${logcomplaints.user.id}" />
+	                        <input type="hidden" th:field="*{policeOfficerId}" th:value="${loggedOfficer.id}" />
+	
+	                        <!-- FIR Number -->
+	                        <div class="mb-3">
+	                            <label for="firNumber" class="form-label">FIR Number</label>
+	                            <input type="text" class="form-control" th:field="*{firNumber}" th:value="${fir.firNumber}" placeholder="e.g., FIR/2025/001" required>
+	                            <div class="invalid-feedback">Please enter a valid FIR number.</div>
+	                        </div>
+	
+	                        <!-- Complaint Details Section -->
+	                        <div class="mb-3">
+	                            <h5 class="text-muted">Complaint Details</h5>
+	                            <div class="row">
+	                                <div class="col-md-6 mb-3">
+	                                    <label for="title" class="form-label">Title</label>
+	                                    <input type="text" class="form-control" th:field="*{title}" th:value="${logcomplaints.title}" readonly>
+	                                </div>
+	                                <div class="col-md-6 mb-3">
+	                                    <label for="crimeType" class="form-label">Crime Type</label>
+	                                    <input type="text" class="form-control" th:field="*{crimeType}" th:value="${logcomplaints.crimeType}" readonly>
+	                                </div>
+	                            </div>
+	                            <div class="mb-3">
+	                                <label for="description" class="form-label">Description</label>
+	                                <textarea class="form-control" th:field="*{description}" th:value="${logcomplaints.description}" rows="4" readonly></textarea>
+	                            </div>
+	                            <div class="row">
+	                                <div class="col-md-6 mb-3">
+	                                    <label for="location" class="form-label">Location</label>
+	                                    <input type="text" class="form-control" th:field="*{location}" th:value="${logcomplaints.location}" readonly>
+	                                </div>
+	                                <div class="col-md-6 mb-3">
+	                                   <div class="form-group">
+	                                <label for="createdAt">Report At</label>
+	                                <input type="datetime-local" class="form-control" id="createdAt" name="createdAt" th:classappend="${#fields.hasErrors('createdAt') ? 'is-invalid' : ''}" th:field="*{createdAt}" value="${#dates.format(LocalDateTime.now(), 'yyyy-MM-dd\'T\'HH:mm')}" required>
+	                                <div class="invalid-feedback" th:each="e : ${#fields.errors('createdAt')}" th:text="${e}"></div>
+	                            </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	
+	                        <!-- FIR Details Section -->
+	                        <div class="mb-3">
+	                            <h5 class="text-muted">FIR Details</h5>
+	                            <div class="row">
+	                                <div class="col-md-6 mb-3">
+	                                    <label for="status" class="form-label">Status</label>
+	                                    <select class="form-select" th:field="*{status}" required>
+	                                        <option value="">Select Status</option>
+	                                        <option value="DRAFT">Draft</option>
+	                                        <option value="ACTIVE">Active</option>
+	                                        <option value="CLOSED">Closed</option>
+	                                    </select>
+	                                    <div class="invalid-feedback">Please select a status.</div>
+	                                </div>
+	                                <div class="col-md-6 mb-3">
+	                                       <div class="form-group">
+	                                <label for="updatedAt">Updated At</label>
+	                                <input type="datetime-local" class="form-control" id="updatedAt" name="updatedAt" th:classappend="${#fields.hasErrors('updatedAt') ? 'is-invalid' : ''}" th:field="*{updatedAt}" value="${#dates.format(LocalDateTime.now(), 'yyyy-MM-dd\'T\'HH:mm')}" required>
+	                                <div class="invalid-feedback" th:each="e : ${#fields.errors('updatedAt')}" th:text="${e}"></div>
+	                            </div>
+	                                </div>
+	                            </div>
+	                            <div class="mb-3">
+	                                <label for="caseOfficerNotes" class="form-label">Officer Notes</label>
+	                                <textarea class="form-control" th:field="*{caseOfficerNotes}" rows="3" placeholder="Enter additional notes"></textarea>
+	                            </div>
+	                            <div class="mb-3">
+	                                <label for="isUnderInvestigation">Under Investigation</label>
+	                                <div class="form-check">
+	                                    <input type="checkbox" class="form-check-input" id="isUnderInvestigation" name="isUnderInvestigation" th:field="*{isUnderInvestigation}" th:value="${fir.isUnderInvestigation}">
+	                                    <label class="form-check-label">Yes</label>
+	                                </div>
+	                                <div class="invalid-feedback" th:each="e : ${#fields.errors('isUnderInvestigation')}" th:text="${e}"></div>
+	                            </div>
+	                        </div>
+	
+	                        <!-- Officer Information -->
+	                        <div class="mb-3">
+	                            <h5 class="text-muted">Officer Information</h5>
+	                            <div class="row">
+	                                <div class="col-md-6 mb-3">
+	                                    <label class="form-label">Officer Name</label>
+	                                    <input type="text" class="form-control" th:value="${loggedOfficer.name}" readonly>
+	                                </div>
+	                                <div class="col-md-6 mb-3">
+	                                    <label class="form-label">Badge Number</label>
+	                                    <input type="text" class="form-control" th:value="${loggedOfficer.badgeNumber}" readonly>
+	                                </div>
+	                            </div>
+	                            <div class="row">
+	                                <div class="col-md-6 mb-3">
+	                                    <label class="form-label">Police Station</label>
+	                                    <input type="text" class="form-control" th:value="${loggedOfficer.policeStationselect}" readonly>
+	                                </div>
+	                                <div class="col-md-6 mb-3">
+	                                    <label class="form-label">Rank</label>
+	                                    <input type="text" class="form-control" th:value="${loggedOfficer.rank}" readonly>
+	                                </div>
+	                            </div>
+	                        </div>
+	
+	                        <!-- Submit and Cancel Buttons -->
+	                        <div class="text-center">
+	                            <button type="submit" class="btn btn-success btn-lg">Submit FIR</button>
+	                            <a th:href="@{/onlinecrimereportingsystem/police/policeviewcomplaints}" class="btn btn-secondary btn-lg ms-3">Cancel</a>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	    </section>
+
+	</body>
+	</html>

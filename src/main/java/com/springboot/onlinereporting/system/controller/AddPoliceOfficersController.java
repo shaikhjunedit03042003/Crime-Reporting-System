@@ -191,7 +191,7 @@ public class AddPoliceOfficersController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("errorMessage", "Errorr:="+e.getMessage());
+			model.addAttribute("errorMessage", "Errorr:---git"+e.getMessage());
 			model.addAttribute("policeOfficerDTO", policeOfficerDTO);
 			return "admin/update-police-officer";
 

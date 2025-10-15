@@ -14,5 +14,4 @@ public interface ComplaintsMapper {
 
 	ComplaintEntity toEntity(ComplaintBO bo);
 
-	ComplaintDTO toDto(ComplaintBO bo);
 }

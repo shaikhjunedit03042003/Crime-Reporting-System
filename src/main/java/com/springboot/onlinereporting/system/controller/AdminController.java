@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.onlinereporting.system.BO.ComplaintBO;
 import com.springboot.onlinereporting.system.BO.PoliceStationBO;
@@ -30,6 +31,7 @@ import com.springboot.onlinereporting.system.DTO.ComplaintDTO;
 import com.springboot.onlinereporting.system.DTO.CrimeTypedDTO;
 import com.springboot.onlinereporting.system.DTO.PoliceStationEntryDTO;
 import com.springboot.onlinereporting.system.DTO.UserDTO;
+import com.springboot.onlinereporting.system.entities.CrimeTypedEntity;
 import com.springboot.onlinereporting.system.entities.PoliceStationEntry;
 import com.springboot.onlinereporting.system.entities.UserEntity;
 import com.springboot.onlinereporting.system.helper.Message;
@@ -58,6 +60,9 @@ public class AdminController {
 
 	@Autowired
 	private ComplaintServce complaintServce;
+
+	@Autowired
+	private CrimeTypeRepository crimeTypeRepository;
 
 	// admin home controller
 	@GetMapping({ "", "/dashboard", "/adminhome" })
@@ -171,6 +176,21 @@ public class AdminController {
 		Map<Long, String> allTypes = crimeTypedService.getAllCrimeTypes();
 		System.out.println("All typedcrimeeeddd=" + allTypes);
 		return ResponseEntity.ok(allTypes != null ? allTypes : Collections.emptyMap());
+	}
+
+	@GetMapping("/display-crime")
+	public String displayCrimes(Model model) {
+		List<CrimeTypedEntity> crimeTypes = crimeTypeRepository.findAll();
+		model.addAttribute("crimeTypes", crimeTypes);
+		model.addAttribute("title", "Display Crime Types");
+		return "admin/display-crime";
+	}
+
+	@GetMapping("/delete-crime/{id}")
+	public String deleteCrime(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+		crimeTypeRepository.deleteById(id);
+		redirectAttributes.addFlashAttribute("successMessage", "Crime type deleted successfully!");
+		return "redirect:/onlinecrimereportingsystem/admins/display-crime";
 	}
 
 	@GetMapping("/allpolicestation")
@@ -310,41 +330,6 @@ public class AdminController {
 		System.out.println("user:=" + user);
 		model.addAttribute("errorMessage", "Please Login First!!");
 		return "login";
-	}
-
-	@GetMapping("/adminviewsAllsComplaints")
-	public String viewAllComplains(Model model, HttpSession session) {
-		try {
-			List<ComplaintBO> bocomplaints = complaintServce.getAllComplaints();
-			System.out.println("At Admin get All Complaints bocomplaints:=="+bocomplaints);
-
-			List<ComplaintDTO> complaints = null;
-			if (bocomplaints != null) {
-				complaints = bocomplaints.stream()
-						.map(bo -> ComplaintDTO.of().createdAt(bo.getCreatedAt()).crimeType(bo.getCrimeType())
-								.description(bo.getDescription()).id(bo.getId())
-								.liveLocationLink(bo.getLiveLocationLink()).location(bo.getLocation())
-								.policeStation(bo.getPoliceStation()).status(bo.getStatus()).title(bo.getTitle())
-								.updatedAt(bo.getUpdatedAt()).userId(bo.getUserId()).username(bo.getUsername())
-								.description(bo.getDescription())
-
-								.build())
-						.collect(Collectors.toList());
-
-				model.addAttribute("complaints", complaints);
-
-				return "admin/admin-view-complaints";
-
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("error", "Error:=" + e.getMessage());
-			return "error";
-
-		}
-
-		return "";
 	}
 
 }

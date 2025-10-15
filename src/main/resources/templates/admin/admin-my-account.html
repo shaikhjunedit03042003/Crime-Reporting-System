@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{users/user-base::layout(~{::section})}">
+	th:replace="~{admin/admin-base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
 <title th:text="${title}"></title>
@@ -33,7 +33,7 @@
 
 
 							 		
-			<img th:src="@{/onlinecrimereportingsystem/users/image/{id}(id=${userDTO.id})}" 
+			<img th:src="@{/onlinecrimereportingsystem/users/userimage/{id}(id=${userDTO.id})}"
      alt="Police Profile"
 			style="width: 100px; height: 100px; object-fit: cover; margin-right: 10px;" />
 <br><br>

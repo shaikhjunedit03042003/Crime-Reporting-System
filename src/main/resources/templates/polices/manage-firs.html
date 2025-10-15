@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{polices/police-base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <section class="banner d-flex justify-content-center align-items-center">
+    
+    
+    
+        <div class="container" style="margin-top: 20px; height: 100%; width: 100%;">
+            <div class="container text-center" id="box1">
+                <div th:if="${successMessage}" class="success alert-success" th:text="${successMessage}"></div>
+                <div th:if="${errorMessage}" class="error alert-danger" th:text="${errorMessage}"></div>
+            </div>
+            
+            
+            
+            <h1 style="color: red;" class="text-center">Manage FIRS !!</h1>
+            <div style="background-color: white; height: 150vh; width: 90vw;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Complaint Id</th>
+                            <th>User Id</th>
+                            <th>Title</th>
+                            <th>Crime Type</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>FIR ID</th>
+                            <th>Police Officer Id</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="firDTO : ${firDTOs}">
+                            <td th:text="${firDTO.complaintId}"></td>
+                            <td th:text="${firDTO.userId}"></td>
+                            <td th:text="${firDTO.title}"></td>
+                            <td th:text="${firDTO.crimeType}"></td>
+                            <td th:text="${firDTO.status}"></td>
+                            <td th:text="${#temporals.format(firDTO.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+                            <td th:text="${firDTO.id}"></td>
+                            <td th:text="${firDTO.policeOfficerId}"></td>
+                            <td>
+                                <form th:action="@{/onlinecrimereportingsystem/police/manage/fir/api/pdf/generate-fir}" method="get">
+                                    <input type="hidden" th:name="firNumber" th:value="${firDTO.firNumber}" />
+                                    <input type="hidden" th:name="complaintId" th:value="${firDTO.complaintId}" />
+                                    <button type="submit" style="background-color: green;" class="btn btn-sm">FIR Generate</button>
+                                	
+                                
+                                </form>
+                                </td>
+                                <td>
+                                <form th:action="@{/onlinecrimereportingsystem/police/manage/fir/view-fir}" method="get">
+                                    <input type="hidden" th:name="firId" th:value="${firDTO.id}" />
+                                    <input type="hidden" th:name="complaintId" th:value="${firDTO.complaintId}" />
+                                    <button type="submit" style="background-color: green;" class="btn btn-sm">FIR View</button>
+                                	
+                                
+                                </form>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

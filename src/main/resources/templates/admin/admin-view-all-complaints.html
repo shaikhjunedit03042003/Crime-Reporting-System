@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{admin/admin-base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+
+</head>
+<body>
+	<section
+		class="banner d-flex justify-content-center align-items-center">
+
+		<div class="container"
+			style="margin-top: 20px; height: 100%; width: 100%; background-color: white;">
+
+			<div class="container text-center" id="box1">
+				<div class="container mt-6">
+					<h1 style="color: blue;">Manage Complaints</h1>
+					<!-- Success/Error Messages -->
+					<div th:if="${successMessage}" class="alert alert-success"
+						th:text="${successMessage}"></div>
+					<div th:if="${errorMessage}" class="alert alert-danger"
+						th:text="${errorMessage}"></div>
+
+
+					<div class="row mb-3">
+						<div class="col-md-4">
+							<input type="text" class="form-control" id="search"
+								placeholder="Search by title or crime type..."
+								onkeyup="filterTable()">
+						</div>
+
+					</div>
+					<div class="row mb-3">
+						<div class="col-md-4" style="display: flex;">
+							<label>Police Station: </label> <select class="form-control"
+								id="policeFilter">
+								<option value="All">All</option>
+								<option th:each="station : ${policeStations}"
+									th:value="${station}" th:text="${station}"></option>
+							</select>
+						</div>
+
+						<div class="col-md-4" style="display: flex;">
+							<label>Status: </label> <select class="form-control"
+								id="statusFilter">
+								<option value="All">All</option>
+								<option value="PENDING">PENDING</option>
+								<option value="ASSIGNED">ASSIGNED</option>
+								<option value="IN_PROGRESS">IN_PROGRESS</option>
+								<option value="RESOLVED">RESOLVED</option>
+							</select>
+						</div>
+
+
+						<div class="col-md-4" style="display: flex;">
+							<label>Date: </label> <input type="date"
+								style="height: 50px; width: 120px;" id="date">
+							<div class="text-center">
+								<button
+									style="margin-left: 10px; height: 50px; width: 100px; background-color: green; color: red;"
+									onclick="filterStatusAndPoliceStation()">Search</button>
+							</div>
+
+
+						</div>
+
+
+
+					</div>
+
+
+					<!-- Complaints Table -->
+					<table id="complaintsTable">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Title</th>
+								<th>Crime Type</th>
+								<th>Crime Date</th>
+								<th>Location</th>
+								<th>Police Station</th>
+								<th>Status</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="complaint : ${complaints}">
+								<td th:text="${complaint.id}"></td>
+								<td th:text="${complaint.title}"></td>
+								<td th:text="${complaint.crimeType}"></td>
+								<td th:text="${complaint.createdAt}"></td>
+								<td th:text="${complaint.location}"></td>
+								<td th:text="${complaint.policeStation}"></td>
+								<td><span th:text="${complaint.status}"
+									th:class="${complaint.status == 'PENDING' ? 'badge bg-warning' :
+                     complaint.status == 'ASSIGNED' ? 'badge bg-info' :
+                     complaint.status == 'IN_PROGRESS' ? 'badge bg-primary' :
+                     complaint.status == 'RESOLVED' ? 'badge bg-success' :
+                     'badge bg-danger'}"></span>
+								</td>
+
+								<td><a
+									th:href="@{/onlinecrimereportingsystem/admins/adminhandlecomplaints/view/{id}(id=${complaint.id})}"
+									class="btn btn-sm btn-info">View Details</a></td>
+							</tr>
+						</tbody>
+					</table>
+
+
+				</div>
+			</div>
+		</div>
+
+		<script>
+			function filterTable() {
+				const input = document.getElementById("search").value
+						.toLowerCase();
+				const status = document.getElementById("statusFilter").value
+						.toLowerCase();
+				const table = document.getElementById("complaintsTable");
+				const rows = table.getElementsByTagName("tr");
+				for (let i = 1; i < rows.length; i++) {
+					const cells = rows[i].getElementsByTagName("td");
+					let match = false;
+					for (let j = 0; j < cells.length; j++) {
+						if (cells[j].textContent.toLowerCase().includes(input)) {
+							match = true;
+							break;
+						}
+					}
+					// Status filter
+					//const rowStatus = cells[6].textContent.trim();
+					//let matchStatus = (status === "All" || rowStatus === status);
+
+					//rows[i].style.display = (match || matchStatus) ? "" : "none";
+					rows[i].style.display = match ? "" : "none";
+				}
+			}
+
+			function filterStatusAndPoliceStation() {
+				console.log("This filterStatusAndPoliceStation() is called");
+
+				const statusFilter = document.getElementById("statusFilter").value;
+				const policeFilter = document.getElementById("policeFilter").value;
+				const dateFilter = document.getElementById("date").value;
+
+				console.log("statusFilter==" + statusFilter);
+				console.log("policeFilter==" + policeFilter);
+				console.log("date" + dateFilter)
+
+				const table = document.getElementById("complaintsTable");
+				const rows = table.getElementsByTagName("tr");
+
+				for (let i = 1; i < rows.length; i++) {
+					const cells = rows[i].getElementsByTagName("td");
+					const rowStatus = cells[6].textContent.trim();
+					const rowPolice = cells[5].textContent.trim();
+					const rowDate = cells[3].textContent.trim();
+					const dateextract = rowDate.split("T")[0];
+					console.log("dateextract:=" + dateextract);
+
+					const matchStatus = (statusFilter === "All" || rowStatus === statusFilter);
+					const matchPolice = (policeFilter === "All" || rowPolice === policeFilter);
+					const matchDate = (dateFilter === "" || dateextract === dateFilter);
+
+					console.log("matchStatus==" + matchStatus);
+					console.log("matchPolice===" + matchPolice);
+					console.log("matchStatus && matchPolice==="
+							+ (matchStatus && matchPolice))
+					rows[i].style.display = (matchStatus && matchPolice && matchDate) ? ""
+							: "none";
+				}
+			}
+		</script>
+
+	</section>
+</body>
+</html>

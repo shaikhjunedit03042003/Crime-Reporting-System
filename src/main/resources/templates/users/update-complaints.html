@@ -22,14 +22,14 @@
 						style="color: red; font-size: 20px; display: block; background: #4bf542;">
 						Hello, Welcome to My Website OnlineCrime Reporting System </marquee>
 					<div class="my-card">
-					<div class="container text-center" id="box1">
+						<div class="container text-center" id="box1">
 
-						<div th:if="${successMessage}" class="success alert-success"
-							th:text="${successMessage}"></div>
-						<div th:if="${errorMessage}" class="error alert-danger"
-							th:text="${errorMessage}"></div>
+							<div th:if="${successMessage}" class="success alert-success"
+								th:text="${successMessage}"></div>
+							<div th:if="${errorMessage}" class="error alert-danger"
+								th:text="${errorMessage}"></div>
 
-</div>
+						</div>
 						<div class="container text-center">
 							<img style="width: 10%;" th:src="@{/images/police1.png}" />
 						</div>
@@ -41,10 +41,10 @@
 
 
 
-							
+
 							<div class="form-group">
-								<label for="userId">Complaint Id</label> <input type="text" readonly
-									th:value="${logcomplaints.id}" class="form-control"
+								<label for="userId">Complaint Id</label> <input type="text"
+									readonly th:value="${logcomplaints.id}" class="form-control"
 									id="id" name="id"
 									th:classappend="${#fields.hasErrors('id') ? 'is-invalid' : ''}"
 									th:field="*{id}">
@@ -105,7 +105,7 @@
 
 							<div class="form-group">
 								<label for="status">Status</label> <input type="text"
-									id="status"  name="status" readonly
+									id="status" name="status" readonly
 									th:value="${logcomplaints.status}" th:field="*{status}">
 
 								<div class="invalid-feedback"
@@ -117,8 +117,8 @@
 							<div class="form-group">
 								<label for="createdAt">Created At</label> <input
 									type="datetime-local" class="form-control" id="createdAt"
-									readonly name="createdAt"
-									th:value="${#temporals.format(logcomplaints.createdAt, 'yyyy-MM-dd HH:mm')}"
+								th:value="${#temporals.format(logcomplaints.createdAt, 'yyyy-MM-dd HH:mm')}"
+										readonly name="createdAt"
 									th:classappend="${#fields.hasErrors('createdAt') ? 'is-invalid' : ''}"
 									placeholder="Select Date and Time">
 								<div class="invalid-feedback"
@@ -135,29 +135,33 @@
 								<div class="invalid-feedback"
 									th:each="e : ${#fields.errors('updatedAt')}" th:text="${e}"></div>
 							</div>
-														<!-- Crime Type -->
 							<div class="form-group">
 								<label for="crimeType">Crime Type</label> <select
 									class="form-control" id="crimeType" th:field="*{crimeType}"
 									th:classappend="${#fields.hasErrors('crimeType')} ? 'is-invalid' : ''">
-									<option value="0">Select a Crime Type</option>
+									<!-- Pre-selected current value -->
+									<option th:value="${logcomplaints.crimeType}"
+										th:text="${logcomplaints.crimeType}" selected>
+										${logcomplaints.crimeType}</option>
 								</select>
 								<div class="invalid-feedback"
 									th:each="e : ${#fields.errors('crimeType')}" th:text="${e}"></div>
 							</div>
-							
-							
-							
-							<!-- Crime Type -->
+
 							<div class="form-group">
-								<label for="crimeType">Select Police Station</label> <select
-									class="form-control" id="policeStation" th:field="*{policeStation}"
+								<label for="policeStation">Select Police Station</label> <select
+									class="form-control" id="policeStation"
+									th:field="*{policeStation}"
 									th:classappend="${#fields.hasErrors('policeStation')} ? 'is-invalid' : ''">
-									<option value="0">Select a Crime Type</option>
+									<!-- Pre-selected current value -->
+									<option th:value="${logcomplaints.policeStation}"
+										th:text="${logcomplaints.policeStation}" selected>
+										${logcomplaints.policeStation}</option>
 								</select>
 								<div class="invalid-feedback"
 									th:each="e : ${#fields.errors('policeStation')}" th:text="${e}"></div>
 							</div>
+
 
 
 							<!-- User Email -->
@@ -215,7 +219,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 
 </body>
 </html>

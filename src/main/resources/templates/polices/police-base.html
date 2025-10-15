@@ -54,15 +54,12 @@
 						<a class="dropdown-item"
 							th:href="@{/onlinecrimereportingsystem/police/policeviewcomplaints}">
 							View Complaints (My Station) </a> <a class="dropdown-item"
-							th:href="@{/onlinecrimereportingsystem/police/updateComplaint}">
-							Update Complaint Status </a> <a class="dropdown-item"
-							th:href="@{/onlinecrimereportingsystem/police/fir}"> Manage
-							FIRs </a> <a class="dropdown-item"
-							th:href="@{/onlinecrimereportingsystem/police/criminals}">
-							Criminal Records </a> <a class="dropdown-item"
+							th:href="@{/onlinecrimereportingsystem/police/manage/fir}">
+							Manage FIRs </a> <a class="dropdown-item"
 							th:href="@{/onlinecrimereportingsystem/police/reports}">
 							Reports & Analytics </a>
-					</div><li class="nav-item"><a style="color: white;" class="nav-link"
+					</div>
+				<li class="nav-item"><a style="color: white;" class="nav-link"
 					href="#"
 					th:href="@{/onlinecrimereportingsystem/forgotpassword/changepassword}">Change
 						Password</a></li>
@@ -107,6 +104,10 @@
 
 	<!-- <script th:src="@{/js/script.js}"></script> -->
 	<script th:src="@{/js/police-view-complaints-opeartion.js}"></script>
+	<!-- police-views-users-complaints.js -->
+
+	<script th:src="@{/js/police/police-views-users-complaints.js}"></script>
+
 
 
 

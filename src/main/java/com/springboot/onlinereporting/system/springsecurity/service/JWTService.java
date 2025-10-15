@@ -17,7 +17,7 @@ import java.util.function.Function;
 @Service
 public class JWTService {
 
-	private static final long tokenExpiry_nm = 1000 * 60 * 10; // 10 minutes
+	private static final long tokenExpiry_nm = 1000 * 60 * 60; // 10 minutes
 	public long getTokenExpiryMs() {
 	    return tokenExpiry_nm;
 	}

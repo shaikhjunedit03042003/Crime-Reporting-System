@@ -69,8 +69,8 @@ public class PoliceStationEntryService {
 		if(entity!=null) {
 			//BO to Entity
 			PoliceStationEntry entityForsaved=PoliceStationEntry.of()
-					.AddressLine1(policeStationBO.getAddressLine1())
-					.AddressLine2(policeStationBO.getAddressLine2())
+					.addressLine1(policeStationBO.getAddressLine1())
+					.addressLine2(policeStationBO.getAddressLine2())
 					.area(policeStationBO.getArea())
 					.city(policeStationBO.getCity())
 					.contactNumber(policeStationBO.getContactNumber())
@@ -78,7 +78,7 @@ public class PoliceStationEntryService {
 					.emergencyNumber(policeStationBO.getEmergencyNumber())
 					.faxNumber(policeStationBO.getFaxNumber())
 					.id(policeStationBO.getId())
-					.LandMark(policeStationBO.getLandMark())
+					.landMark(policeStationBO.getLandMark())
 					.pincode(policeStationBO.getPincode())
 					.state(policeStationBO.getState())
 					.stationCode(policeStationBO.getStationCode())

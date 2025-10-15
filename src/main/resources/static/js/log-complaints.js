@@ -9,13 +9,22 @@ $(document).ready(function() {
         },
         success: function(responseJson) {
             var $select = $('#crimeType');
+			var $selecttext = $('#crimeType').val();
             $select.find('option').remove();
-            $('<option>').val("0").text("Select a Crime Type").appendTo($select);
-
+			if($selecttext!=0){
+			$('<option>').val($selecttext).text($selecttext).appendTo($select);
+			}
+			else{
+				$select.find('option').remove();
+				$('<option>').val("0").text("Select a Crime Type").appendTo($select);
+			}
+           
             if (responseJson && Object.keys(responseJson).length > 0) {
                 $.each(responseJson, function(key, value) {
+					
                     $('<option>').val(value).text(value).appendTo($select);
-                });
+               
+					 });
             } else {
                 console.warn("No crime types received from server.");
             }
@@ -35,11 +44,24 @@ $(document).ready(function() {
 			},
 			success:function(responseJson){
 				var $select=$('#policeStation');
+				var $selecttext=$('#policeStation').val();
+
 				$select.find('option').remove();
+				if($selecttext!=0){
+					$('<option>').val($selecttext).text($selecttext).appendTo($select);
+
+					
+				}
+				else{	
+					$select.find('option').remove();			
 				$('<option>').val("0").text("select a Police Station").appendTo($select);
+				}
 				if(responseJson && Object.keys(responseJson).length>0){
 					$.each(responseJson,function(key,value){
+
+						
 						$('<option>').val(value).text(value).appendTo($select);
+					
 					});
 				}else{
 					console.warn("No Police Station Are Available.....");

@@ -23,8 +23,10 @@ import com.springboot.onlinereporting.system.BO.UserBO;
 import com.springboot.onlinereporting.system.DTO.LoginUserDTO;
 import com.springboot.onlinereporting.system.DTO.PoliceOfficerDTO;
 import com.springboot.onlinereporting.system.DTO.UserDTO;
+import com.springboot.onlinereporting.system.entities.CrimeTypedEntity;
 import com.springboot.onlinereporting.system.entities.UserEntity;
 import com.springboot.onlinereporting.system.helper.Message;
+import com.springboot.onlinereporting.system.repositories.CrimeTypeRepository;
 import com.springboot.onlinereporting.system.repositories.PoliceOfficerRepository;
 import com.springboot.onlinereporting.system.services.PoliceOfficerService;
 import com.springboot.onlinereporting.system.services.UserService;
@@ -53,6 +55,9 @@ public class HomeController {
 
 	@Autowired
 	private PoliceOfficerRepository policeOfficerRepository;
+	
+	@Autowired
+	private CrimeTypeRepository crimeTypeRepository;
 
 	// Home Handler
 
@@ -156,8 +161,8 @@ public class HomeController {
 				}
 			} else if ("POLICE".equals(userDTO.getRole())) {
 				System.out.println("!policeOfficerRepository.existsByBadgeNumber(secretKey)"
-						+ (!policeOfficerRepository.existsByBadgeNumber(secretKey)));
-				if (secretKey == null || !policeOfficerRepository.existsByBadgeNumber(secretKeyPolice)) {
+						+ (!policeOfficerRepository.existsByBadgeNumber(secretKeyPolice)));
+				if (secretKeyPolice == null || !policeOfficerRepository.existsByBadgeNumber(secretKeyPolice)) {
 					model.addAttribute("errorMessage",
 							"Invalid Police BadgeNumber Please Correct BadgeNumber Enter...");
 					model.addAttribute("user", userDTO);
@@ -308,4 +313,13 @@ public class HomeController {
 			return ResponseEntity.ok().header("Content-Type", contentType).body(image);
 		}).orElse(ResponseEntity.notFound().build());
 	}
+	
+	@GetMapping("/display-crime")
+	public String displayCrimes(Model model) {
+		List<CrimeTypedEntity> crimeTypes = crimeTypeRepository.findAll();
+		model.addAttribute("crimeTypes", crimeTypes);
+		model.addAttribute("title", "Display Crime Types");
+		return "display-crime";
+	}
+	
 }

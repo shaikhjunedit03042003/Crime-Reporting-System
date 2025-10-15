@@ -28,23 +28,20 @@ public class UserService {
 	}
 	
 	public UserBO updateUser(UserEntity userEntity) {
-	    // 1. Find user by ID
+	    
 	    UserEntity existingUser = userRepository.findById(userEntity.getId())
 	            .orElseThrow(() -> new RuntimeException("User not found with id: " + userEntity.getId()));
 
-	    // 2. Update only allowed fields
+	    
 	    existingUser.setUsername(userEntity.getUsername());
 	    existingUser.setEmailid(userEntity.getEmailid());
 	    existingUser.setMessage(userEntity.getMessage());
 	    existingUser.setImage(userEntity.getImage());
 	    existingUser.setFilename(userEntity.getFilename());
 	    existingUser.setContentType(userEntity.getContentType());
-	    // If password, role, agreement etc. should NOT be changed → do not set them here
 
-	    // 3. Save updated user
 	    UserEntity user_result = userRepository.save(existingUser);
 
-	    // 4. Convert to BO and return
 	    return UserBO.of()
 	            .id(user_result.getId())
 	            .username(user_result.getUsername())
@@ -53,8 +50,8 @@ public class UserService {
 	            .image(user_result.getImage())
 	            .filename(user_result.getFilename())
 	            .contentType(user_result.getContentType())
-	            .role(user_result.getRole())       // keep existing
-	            .password(user_result.getPassword()) // keep existing
+	            .role(user_result.getRole())     
+	            .password(user_result.getPassword()) 
 	            .agreement(user_result.isAgreement())
 	            .secretKey(user_result.getSecretKey())
 	            .build();
