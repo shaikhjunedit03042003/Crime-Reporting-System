@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-CrimeReportingSystemApplication<crime-reporting-system>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.crime.reporting.system.CrimeReportingSystemApplication",
+      "projectName": "crime-reporting-system",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

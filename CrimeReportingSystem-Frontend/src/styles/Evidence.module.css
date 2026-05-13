@@ -1,0 +1,25 @@
+.panel { width:100%; max-width:900px; background:#fff; border-radius:8px; padding:12px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.list { display:flex; flex-direction:column; gap:10px; }
+.item { display:flex; justify-content:space-between; padding:10px; border-radius:8px; background:#fff; border:1px solid #f1f5f9; }
+.meta { flex:1; }
+.filename { font-weight:600; }
+.sub { color:#6b7280; font-size:12px; }
+.description { margin-top:6px; color:#374151; }
+.actions { display:flex; gap:8px; align-items:center; }
+.smallBtn { background:#f3f4f6; border:none; padding:6px 8px; border-radius:6px; cursor:pointer; }
+.primaryBtn { background:#2b6ef6; color:#fff; padding:8px 12px; border:none; border-radius:6px; cursor:pointer; }
+.empty { color:#9ca3af; padding:12px; }
+
+/* modal reused styles */
+.modalOverlay { position:fixed; inset:0; background:rgba(0,0,0,0.35); display:flex; justify-content:center; align-items:center; z-index:50; }
+.modal { width:640px; background:#fff; border-radius:8px; overflow:hidden; }
+.modalHeader { display:flex; justify-content:space-between; padding:12px 16px; border-bottom:1px solid #eef2ff; align-items:center; }
+.modalBody { padding:12px 16px; }
+.modalFooter { padding:12px 16px; border-top:1px solid #eef2ff; }
+.closeBtn { border:none; background:transparent; cursor:pointer; font-size:16px; }
+.field { margin-bottom:12px; display:flex; flex-direction:column; gap:6px; }
+.progress { background:#e6e9ef; height:8px; border-radius:6px; overflow:hidden; }
+.progressBar { background:#2b6ef6; height:100%; width:0; transition:width 0.2s; }
+.footer { display:flex; gap:8px; justify-content:flex-end; margin-top:8px; }
+.secondaryBtn { background:#f3f4f6; color:#111827; padding:8px 12px; border:none; border-radius:6px; cursor:pointer; }

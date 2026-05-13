@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="753e69f1-43ec-493a-a0c6-2d7904ae3ccb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../../.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/AuthResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/AuthResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/StatusHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/StatusHistory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/ComplaintRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/ComplaintRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/NotificationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/NotificationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/ComplaintService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/ComplaintService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/NotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/NotificationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/components/ProtectedRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/components/ProtectedRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/context/AuthContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/context/AuthContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/pages/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/pages/LoginPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/pages/RegisterPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/pages/RegisterPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/pages/ReportCrimePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/pages/ReportCrimePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/pages/UserDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/pages/UserDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/services/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/services/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/styles/Auth.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/styles/Auth.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/styles/Form.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../CrimeReportingSystem-Frontend/src/styles/Form.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/CrimeReportingSystemApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/CrimeReportingSystemApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/config/OpenAPIConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/config/OpenAPIConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/controller/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/controller/ComplaintController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/controller/ComplaintController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/controller/NotificationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/controller/PoliceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/controller/PoliceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/AdminPoliceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/AdminPoliceDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/ApiResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/AuthResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/AuthResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/ComplaintMapDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/ComplaintMapDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/ComplaintRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/ComplaintRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/ComplaintResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/ComplaintResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/CrimeStatisticsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/CrimeStatisticsResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/InvestigationNoteDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/InvestigationNoteDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/NotificationResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/NotificationResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/PoliceComplaintDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/PoliceComplaintDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/PoliceStatsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/PoliceStatsDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/SignupRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/SignupRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/StatusUpdateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/dto/StatusUpdateDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/Complaint.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/Complaint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/ComplaintStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/ComplaintStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/Evidence.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/Evidence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/InvestigationNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/InvestigationNote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/PoliceStation.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/PoliceStation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/StatusHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/StatusHistory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/entity/UserRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/exception/ApplicationException.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/exception/ApplicationException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/ComplaintRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/ComplaintRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/EvidenceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/EvidenceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/InvestigationNoteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/InvestigationNoteRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/NotificationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/NotificationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/PoliceStationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/PoliceStationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/StatusHistoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/StatusHistoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/security/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/security/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/security/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/AdminService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/AutoAssignmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/AutoAssignmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/ComplaintService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/ComplaintService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/NotificationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/PoliceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/PoliceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/util/DatabaseSeeder.java" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/java/com/crime/reporting/system/util/DatabaseSeeder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/CrimeReportingSystem-Backend/src/main/resources/schema.sql" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="39cjhX2FtrdqAdt1hhG4Z0r9OLI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CrimeReportingSystemApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/MSc-ll/Online Crime/New Crime Reporting Systemm/Crime Reporting/Crime Reporting/CrimeReportingSystem-Backend/CrimeReportingSystem-Backend",
+    "settings.editor.selected.configurable": "com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="CrimeReportingSystemApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.crime.reporting.system.CrimeReportingSystemApplication" />
+      <module name="crime-reporting-system" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.crime.reporting.system.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CrimeReportingSystemApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="753e69f1-43ec-493a-a0c6-2d7904ae3ccb" name="Changes" comment="" />
+      <created>1771002375387</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1771002375387</updated>
+    </task>
+    <servers />
+  </component>
+</project>

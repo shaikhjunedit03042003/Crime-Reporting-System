@@ -1,0 +1,701 @@
+.dashboardContainer {
+  padding: 24px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* ==================== HEADER & TITLE ==================== */
+
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dashboardTitle {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.headerControls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ==================== FILTERS ==================== */
+
+.filterContainer {
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.filterGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filterInput,
+.filterSelect {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: white;
+  transition: border-color 0.3s ease;
+}
+
+.filterInput:focus,
+.filterSelect:focus {
+  outline: none;
+  border-color: #2196F3;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.filterButton {
+  padding: 8px 16px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  align-self: flex-end;
+}
+
+.filterButton:hover {
+  background-color: #1976D2;
+}
+
+.filterButton:active {
+  transform: scale(0.98);
+}
+
+/* ==================== CARDS & GRID ==================== */
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cardValue {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 8px 0;
+}
+
+.cardDescription {
+  font-size: 12px;
+  color: #999;
+  margin: 0;
+}
+
+.cardIcon {
+  font-size: 32px;
+  opacity: 0.6;
+}
+
+/* ==================== HEATMAP & CHARTS ==================== */
+
+.chartContainer {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.chartTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+}
+
+.chartWrapper {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heatmapContainer {
+  width: 100%;
+  min-height: 400px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+  padding: 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ==================== TABLES ==================== */
+
+.tableContainer {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHead {
+  background-color: #f9f9f9;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.tableHeadRow {
+  display: table-row;
+}
+
+.tableHeadCell {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-right: 1px solid #e0e0e0;
+}
+
+.tableHeadCell:last-child {
+  border-right: none;
+}
+
+.tableBody {
+  display: table-row-group;
+}
+
+.tableRow {
+  display: table-row;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: #fafafa;
+}
+
+.tableCell {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #333;
+  border-right: 1px solid #f0f0f0;
+  word-break: break-word;
+}
+
+.tableCell:last-child {
+  border-right: none;
+}
+
+/* ==================== BADGES & TAGS ==================== */
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badgeSuccess {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+}
+
+.badgeWarning {
+  background-color: #FFF3E0;
+  color: #E65100;
+}
+
+.badgeDanger {
+  background-color: #FFEBEE;
+  color: #B71C1C;
+}
+
+.badgePrimary {
+  background-color: #E3F2FD;
+  color: #1565C0;
+}
+
+.badgeInfo {
+  background-color: #F3E5F5;
+  color: #6A1B9A;
+}
+
+.riskLevel {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.riskLevelLow {
+  background-color: #E8F5E9;
+  color: #4CAF50;
+}
+
+.riskLevelMedium {
+  background-color: #FFF3E0;
+  color: #FF9800;
+}
+
+.riskLevelHigh {
+  background-color: #FFEBEE;
+  color: #F44336;
+}
+
+.riskLevelCritical {
+  background-color: #F8BBD0;
+  color: #880E4F;
+}
+
+.riskIndicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+/* ==================== BUTTONS ==================== */
+
+.buttonGroup {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.buttonPrimary {
+  background-color: #2196F3;
+  color: white;
+}
+
+.buttonPrimary:hover {
+  background-color: #1976D2;
+}
+
+.buttonSecondary {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.buttonSecondary:hover {
+  background-color: #e8e8e8;
+}
+
+.buttonSmall {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.buttonDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==================== MODALS & POPUPS ==================== */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modalContent {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  animation: slideUp 0.3s ease;
+}
+
+.modalHeader {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modalTitle {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.modalClose {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+}
+
+.modalClose:hover {
+  color: #333;
+}
+
+/* ==================== LOADING & EMPTY STATES ==================== */
+
+.loadingSpinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #2196F3;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  text-align: center;
+  color: #999;
+}
+
+.emptyStateIcon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.emptyStateMessage {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+/* ==================== PAGINATION ==================== */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 20px;
+  padding: 16px;
+}
+
+.paginationItem {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.paginationItem:hover {
+  border-color: #2196F3;
+  color: #2196F3;
+}
+
+.paginationItemActive {
+  background-color: #2196F3;
+  color: white;
+  border-color: #2196F3;
+}
+
+/* ==================== TABS ==================== */
+
+.tabsContainer {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.tabsHeader {
+  display: flex;
+  border-bottom: 2px solid #e0e0e0;
+  background-color: #f9f9f9;
+}
+
+.tabButton {
+  flex: 1;
+  padding: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tabButton:hover {
+  color: #2196F3;
+}
+
+.tabButton.active {
+  color: #2196F3;
+}
+
+.tabButton.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #2196F3;
+}
+
+.tabContent {
+  padding: 20px;
+}
+
+/* ==================== ANIMATIONS ==================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+@media (max-width: 768px) {
+  .dashboardContainer {
+    padding: 12px;
+  }
+
+  .dashboardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .dashboardTitle {
+    font-size: 22px;
+  }
+
+  .headerControls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filterGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .cardsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .chartWrapper {
+    height: 250px;
+  }
+
+  .tableCell,
+  .tableHeadCell {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .modalContent {
+    max-width: 95%;
+    padding: 16px;
+  }
+
+  .tabsHeader {
+    overflow-x: auto;
+  }
+
+  .tabButton {
+    white-space: nowrap;
+    padding: 12px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboardContainer {
+    padding: 8px;
+  }
+
+  .dashboardTitle {
+    font-size: 18px;
+  }
+
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .cardValue {
+    font-size: 24px;
+  }
+
+  .chartWrapper {
+    height: 200px;
+  }
+
+  .table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .tableCell {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}

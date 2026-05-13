@@ -1,0 +1,15 @@
+.panel { width:100%; max-width:720px; background:#fff; border-radius:8px; padding:12px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.controls { display:flex; gap:8px; align-items:center; }
+.smallBtn { background:#f3f4f6; border:none; padding:6px 8px; border-radius:6px; cursor:pointer; }
+.list { display:flex; flex-direction:column; gap:8px; }
+.item { display:flex; justify-content:space-between; padding:8px; border-radius:8px; cursor:pointer; }
+.unread { background:#f8fafc; border-left:4px solid #2b6ef6; }
+.read { background:#ffffff; }
+.left { flex:1; }
+.subject { font-weight:600; }
+.message { color:#374151; font-size:13px; }
+.actions { display:flex; gap:6px; align-items:center; }
+.badgeWrapper { position:relative; display:inline-flex; align-items:center; cursor:pointer; }
+.count { position:absolute; top:-6px; right:-6px; background:#ef4444; color:#fff; font-size:11px; padding:2px 5px; border-radius:999px; }
+.empty { text-align:center; color:#9ca3af; padding:12px; }
